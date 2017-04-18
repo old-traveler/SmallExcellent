@@ -23,6 +23,9 @@ public class MyToast {
         mToast.setView(v);
     }
 
+    public static MyToast makeText( CharSequence text) {
+        return new MyToast(SmallApplication.getContext(), text, Toast.LENGTH_SHORT);
+    }
     public static MyToast makeText(Context context, CharSequence text, int duration) {
         return new MyToast(context, text, duration);
     }

@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="stateColor">#ffc927</color>
+    <color name="state_bar_Color">#cfa362</color>
+    <color name="start_background_ll">#deffffff</color>
+    <color name="end_background_ll">#f7f7f7</color>
+    <color name="background_personal">#ffffff</color>
+    <color name="background_personal_item">#fdfdfe</color>
+    <color name="personal_view_background">#f1e5e5</color>
+    <color name="text_color_personal">#000000</color>
+    <color name="item_diem_personal">#8f8b8b</color>
 </resources>
