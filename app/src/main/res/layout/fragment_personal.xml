@@ -9,9 +9,9 @@
         android:layout_height="130dp">
         <ImageView
             android:layout_marginTop="10dp"
-            android:src="@drawable/icon_head"
+            android:src="@drawable/ico_tabbar_user"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="60dp"
             android:layout_height="60dp" />
         <TextView

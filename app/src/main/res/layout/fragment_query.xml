@@ -28,5 +28,159 @@
         android:background="@drawable/edit_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/item_diem_personal"
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"/>
+    <RelativeLayout
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="41dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_personal"
+            android:text="职业类别"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_right_0"
+            android:src="@drawable/arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:text="不限"
+            android:layout_toLeftOf="@id/iv_right_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_diem_personal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_personal"
+            android:text="薪资等级"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_right_1"
+            android:src="@drawable/arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:text="不限"
+            android:layout_toLeftOf="@id/iv_right_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_diem_personal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:textColor="@color/text_color_personal"
+            android:text="工作时长"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_right_2"
+            android:layout_alignParentStart="true" />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_right_2"
+            android:src="@drawable/arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:text="不限"
+            android:layout_toLeftOf="@id/iv_right_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_diem_personal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_personal"
+            android:text="工作地区"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_right_3"
+            android:src="@drawable/arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:text="不限"
+            android:layout_toLeftOf="@id/iv_right_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_diem_personal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:elevation="5dp"
+        android:text="查找"
+        android:background="@drawable/btn_query_background"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="120dp"
+        android:layout_height="40dp" />
 
 </LinearLayout>

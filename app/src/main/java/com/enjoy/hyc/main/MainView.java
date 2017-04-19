@@ -11,4 +11,6 @@ public interface MainView {
 
     void replaceFragment(int position);
 
+    void refreshImageSrc(int position);
+
 }

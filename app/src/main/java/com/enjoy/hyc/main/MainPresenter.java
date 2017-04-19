@@ -9,11 +9,13 @@ import com.enjoy.base.BasePresenter;
 public class MainPresenter extends BasePresenter<MainView> {
 
     public void initFragment(){
+        mvpView.refreshImageSrc(0);
         mvpView.setDefaultFragment();
     }
 
 
     public void replaceFragment(int position){
+        mvpView.refreshImageSrc(position);
         mvpView.replaceFragment(position);
     }
 
