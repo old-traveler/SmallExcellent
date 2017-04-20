@@ -1,11 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.design.widget.CollapsingToolbarLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="地图"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp">
+                <com.amap.api.maps.MapView
+                    android:id="@+id/mv_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"/>
 
-</LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_map_edit"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:background="@color/map_edit_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <ImageView
+                        android:id="@+id/iv_enter_route"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/back"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                    <AutoCompleteTextView
+                        android:windowSoftInputMode="adjustResize"
+                        android:textSize="14sp"
+                        android:hint="关键字查询"
+                        android:id="@+id/atv_map_input"
+                        android:maxLines="1"
+                        android:layout_weight="7"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/translation_color"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/item_diem_personal"
+                        android:layout_width="0.5px"
+                        android:layout_height="30dp"/>
+                    <ImageView
+                        android:id="@+id/iv_clean_input"
+                        android:src="@drawable/clean_input"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/lv_map"
+                    android:background="@color/map_edit_background"
+                    android:layout_marginLeft="55dp"
+                    android:layout_below="@id/ll_map_edit"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content">
+
+                </ListView>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="600dp">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+</android.support.design.widget.CollapsingToolbarLayout>

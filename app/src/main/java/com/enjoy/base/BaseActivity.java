@@ -44,7 +44,7 @@ public class BaseActivity extends AppCompatActivity {
         mActivity = this;
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.state_bar_Color));
+        window.setStatusBarColor(getResources().getColor(R.color.stateColor));
     }
 
 

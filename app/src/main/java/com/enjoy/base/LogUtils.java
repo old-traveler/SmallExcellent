@@ -10,16 +10,13 @@ public class LogUtils  {
 
     public static String HYC="hyc";
 
-    public static String TAG="TAG";
+    public static String TAG="小优";
 
     public static String ZLY="zly";
 
-    public static void logD(String msg){
-        Log.d("TAG",msg);
-    }
 
-    public static void logD(String tag,String msg){
-        Log.d(tag,msg);
+    public static void log(String msg){
+        Log.i(TAG,msg);
     }
 
 }

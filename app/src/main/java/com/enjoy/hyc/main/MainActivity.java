@@ -3,16 +3,23 @@ package com.enjoy.hyc.main;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
 import com.enjoy.R;
+import com.enjoy.base.LogUtils;
 import com.enjoy.base.MvpActivity;
 import com.enjoy.hyc.map.MapDetailsFragment;
+import com.enjoy.hyc.map.MapPresenter;
 import com.enjoy.hyc.personal.PersonalFragment;
 import com.enjoy.hyc.query.QueryFragment;
 
@@ -57,7 +64,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     @Override
     protected MainPresenter createPresenter() {
-        return new MainPresenter();
+        return MainPresenter.getMainPresenter();
     }
 
 
@@ -71,11 +78,32 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         FragmentTransaction transaction = mainFragmentManager.beginTransaction();
         transaction.replace(R.id.fl_main_fragment, fragments.get(0));
         transaction.commit();
+        flMainFragment.getViewTreeObserver().addOnGlobalLayoutListener(
+             new ViewTreeObserver.OnGlobalLayoutListener() {
+                 @Override
+                 public void onGlobalLayout() {
+                     int heightDiff = flMainFragment.getRootView()
+                             .getHeight() - flMainFragment.getHeight();
+                     if (heightDiff > 500) {
+                         mvpPresenter.isHideBottom(false);
+                     }else {
+                         mvpPresenter.isHideBottom(true);
+                     }
+                 }
+             });
     }
 
     @Override
     public void replaceFragment(int position) {
         if (position != currentPosition) {
+            if (position==0){
+                fragments.remove(0);
+                fragments.add(0,new MapDetailsFragment());
+            }else if (currentPosition==0& MapPresenter.mMapView!=null){
+                MapPresenter.mMapView.setVisibility(View.GONE);
+                MapPresenter.mMapView.onDestroy();
+                MapPresenter.mMapView=null;
+            }
             FragmentManager mainFragmentManager = getFragmentManager();
             FragmentTransaction transaction = mainFragmentManager.beginTransaction();
             transaction.replace(R.id.fl_main_fragment, fragments.get(position));
@@ -106,7 +134,8 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         ivPersonal.setImageResource(R.drawable.ic_personal_normal);
         ivQuery.setImageResource(R.drawable.ic_query_normal);
         switch (position){
-            case 0:ivMap.setImageResource(R.drawable.ic_map_selected);
+            case 0:
+                ivMap.setImageResource(R.drawable.ic_map_selected);
                 break;
             case 1:ivQuery.setImageResource(R.drawable.ic_query_selected);
                 break;
@@ -114,4 +143,41 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
                 break;
         }
     }
+
+    @Override
+    public synchronized void getLocationMessage() {
+        LogUtils.log("开始定位");
+        AMapLocationClient mLocationClient = null;
+        AMapLocationClientOption locationClientOption = new AMapLocationClientOption();
+        //设置为高精度
+        locationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置默认返回地址
+        locationClientOption.setNeedAddress(true);
+        //设置是否只定位一次
+        locationClientOption.setOnceLocation(true);
+        if(locationClientOption.isOnceLocation()){
+            locationClientOption.setOnceLocationLatest(true);
+        }
+        //设置是否强制刷新WiFi
+        locationClientOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        locationClientOption.setMockEnable(true);
+        //设置定位间隔,单位毫秒,默认为2000ms
+        locationClientOption.setInterval(2000);
+        //初始化定位
+        mLocationClient = new AMapLocationClient(this);
+        //为定位进行设置
+        mLocationClient.setLocationOption(locationClientOption);
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mvpPresenter);
+        //启动定位
+        mLocationClient.startLocation();
+    }
+
+    @Override
+    public void isVisibleBottomLayout(boolean isShow) {
+        llMainButton.setVisibility(isShow?View.VISIBLE:View.GONE);
+    }
+
+
 }

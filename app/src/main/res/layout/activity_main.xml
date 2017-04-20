@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.enjoy.hyc.main.MainActivity">
-
-    <LinearLayout
-        android:background="@drawable/background_main_btn"
-        android:id="@+id/ll_main_button"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:id="@+id/rl_location_fragment"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="40dp" >
-            <ImageView
-                android:layout_centerInParent="true"
-                android:id="@+id/iv_map"
-                android:src="@drawable/ic_map_normal"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:background="@drawable/background_main_btn"
+            android:id="@+id/ll_main_button"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl_location_fragment"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="40dp" >
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/iv_map"
+                    android:src="@drawable/ic_map_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_query_part_time"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="40dp" >
-            <ImageView
-                android:id="@+id/iv_query"
-                android:src="@drawable/ic_query_normal"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_personal_fragment"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="40dp" >
-            <ImageView
-                android:layout_centerInParent="true"
-                android:id="@+id/iv_personal"
-                android:src="@drawable/ic_personal_normal"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-        </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_query_part_time"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="40dp" >
+                <ImageView
+                    android:id="@+id/iv_query"
+                    android:src="@drawable/ic_query_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_personal_fragment"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="40dp" >
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/iv_personal"
+                    android:src="@drawable/ic_personal_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <FrameLayout
-        android:background="@color/background_personal"
-        android:id="@+id/fl_main_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/ll_main_button"/>
+        <FrameLayout
+            android:background="@color/background_personal"
+            android:id="@+id/fl_main_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ll_main_button"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+</android.support.design.widget.CollapsingToolbarLayout>
