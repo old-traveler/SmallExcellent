@@ -114,16 +114,14 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void initToolBarAsHome(int tvId,String title) {
+    public void initToolBarAsHome(String title) {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
-            TextView toolbarTitle = (TextView) mToolbar.findViewById(tvId);
-            toolbarTitle.setText(title);
+            mToolbar.setTitle(title);
         }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 

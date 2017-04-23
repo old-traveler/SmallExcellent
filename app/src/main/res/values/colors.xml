@@ -20,19 +20,17 @@
     <color name="blue">#4c90f9</color>
     <color name="transparent">#00000000</color>
 
-
-
-
-
+    <color name="load_color">#5e86868c</color>
+    <color name="colorPageBg">#f2f4f5</color>
+    <color name="itemBackground">#DD7D7D7D</color>
+    <color name="itemLowBackground">#d9d9d9</color>
     //高德
     <color name="grey"> #ebebeb</color>
     <color name="darkgrey"> #C0C0C0</color>
     <color name="white"> #FFFFFF</color>
     <color name="red"> #FF0000</color>
     <color name="f850_default_blue">#0079ff</color>
-
     <drawable name="transparent">#00000000</drawable>
-
     <color name="header_toast_bg">#ccebfc</color>
     <color name="header_toast">#024ca1</color>
     <color name="header_toast_line">#abdaf4</color>
@@ -40,7 +38,7 @@
     <color name="offline_head_font">#FFFFFF</color>
     <color name="taobao_black">#333333</color>
     <color name="offline_down_size">#777777</color>
-    <color name="gray_lite">#c5c5c5</color>
+    <color name="gray_lite">#f2f2f2</color>
     <color name="progress_background">#ededed</color>
     <color name="itemlist">#f4f4f4</color>
     <color name="phone_bg">#f6f6f6</color>

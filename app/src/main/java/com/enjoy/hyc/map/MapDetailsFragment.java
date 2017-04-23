@@ -4,10 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +38,6 @@ import com.enjoy.base.BaseFragment;
 import com.enjoy.base.LogUtils;
 import com.enjoy.base.MapUtil;
 import com.enjoy.base.route.RouteActivity;
-import com.enjoy.hyc.main.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +50,7 @@ import butterknife.ButterKnife;
  * Created by hyc on 2017/4/18 12:15
  */
 
-public class MapDetailsFragment extends BaseFragment implements com.enjoy.hyc.map.MapView, AMap.OnMyLocationChangeListener
+public class MapDetailsFragment extends BaseFragment implements MapContract, AMap.OnMyLocationChangeListener
         , TextWatcher, Inputtips.InputtipsListener, View.OnClickListener, GeocodeSearch.OnGeocodeSearchListener,AMap.OnMarkerClickListener {
 
 

@@ -8,7 +8,7 @@ import com.enjoy.base.BasePresenter;
  * Created by hyc on 2017/4/19 20:27
  */
 
-public class MapPresenter extends BasePresenter<MapView> implements AdapterView.OnItemClickListener{
+public class MapPresenter extends BasePresenter<MapContract> implements AdapterView.OnItemClickListener{
 
     public static com.amap.api.maps.MapView mMapView=null;
 

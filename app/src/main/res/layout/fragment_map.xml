@@ -16,6 +16,7 @@
                     android:layout_height="350dp"/>
 
                 <LinearLayout
+
                     android:id="@+id/ll_map_edit"
                     android:orientation="horizontal"
                     android:layout_marginTop="50dp"
@@ -32,6 +33,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp" />
                     <AutoCompleteTextView
+                        android:inputType="text"
+                        android:imeOptions="actionGo"
                         android:windowSoftInputMode="adjustResize"
                         android:textSize="14sp"
                         android:hint="关键字查询"

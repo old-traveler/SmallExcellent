@@ -8,21 +8,21 @@
         android:layout_width="match_parent"
         android:layout_height="130dp">
         <ImageView
-            android:layout_marginTop="10dp"
+            android:id="@+id/iv_my_head"
             android:src="@drawable/ico_tabbar_user"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="40dp"
             android:layout_width="60dp"
             android:layout_height="60dp" />
         <TextView
-            android:layout_marginTop="20dp"
+            android:id="@+id/tv_my_name"
             android:layout_marginLeft="20dp"
             android:text="小优"
             android:textSize="24sp"
             android:textColor="@color/background_personal_item"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"/>
         <RelativeLayout
+            android:id="@+id/rl_salary_bill"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -74,6 +75,7 @@
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_work_record"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -114,6 +116,7 @@
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_collection"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -154,6 +157,89 @@
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_footprint"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="38dp">
+            <ImageView
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:id="@+id/iv_my_footprint"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_footprint"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_personal"
+                android:layout_centerVertical="true"
+                android:text="足迹"
+                android:layout_toRightOf="@id/iv_my_footprint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/arrow_right"
+                android:layout_alignParentRight="true"
+                android:layout_width="20dp"
+                android:layout_height="15dp" />
+            <View
+                android:layout_marginLeft="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5px"
+                android:background="@color/item_diem_personal"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_my_publish"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="38dp">
+            <ImageView
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:id="@+id/iv_my_publish"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_my_publish"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_personal"
+                android:layout_centerVertical="true"
+                android:text="我的发布"
+                android:layout_toRightOf="@id/iv_my_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/arrow_right"
+                android:layout_alignParentRight="true"
+                android:layout_width="20dp"
+                android:layout_height="15dp" />
+            <View
+                android:layout_marginLeft="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5px"
+                android:background="@color/item_diem_personal"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_my_resume"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -198,6 +284,7 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"/>
         <RelativeLayout
+            android:id="@+id/rl_setting"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by hyc on 2017/4/19 20:23
  */
 
-public interface MapView {
+public interface MapContract {
 
     void initMap();
 

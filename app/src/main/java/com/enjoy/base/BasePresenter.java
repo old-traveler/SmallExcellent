@@ -1,5 +1,7 @@
 package com.enjoy.base;
 
+import android.util.Log;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
