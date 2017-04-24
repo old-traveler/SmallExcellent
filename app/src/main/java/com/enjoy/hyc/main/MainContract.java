@@ -17,4 +17,8 @@ public interface MainContract {
 
     void isVisibleBottomLayout(boolean isShow);
 
+    void positioningFail();
+
+    void positioningSuccess();
+
 }

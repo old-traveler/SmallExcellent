@@ -1,18 +1,26 @@
 package com.enjoy.hyc.map;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -38,6 +46,14 @@ import com.enjoy.base.BaseFragment;
 import com.enjoy.base.LogUtils;
 import com.enjoy.base.MapUtil;
 import com.enjoy.base.route.RouteActivity;
+import com.enjoy.hyc.adapter.NearJobAdapter;
+import com.enjoy.hyc.bean.Job;
+import com.enjoy.hyc.jobdetails.JobDetailsActivity;
+import com.enjoy.hyc.jobdetails.JobDetailsPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,23 +67,38 @@ import butterknife.ButterKnife;
  */
 
 public class MapDetailsFragment extends BaseFragment implements MapContract, AMap.OnMyLocationChangeListener
-        , TextWatcher, Inputtips.InputtipsListener, View.OnClickListener, GeocodeSearch.OnGeocodeSearchListener,AMap.OnMarkerClickListener {
-
-
+        , TextWatcher, Inputtips.InputtipsListener, View.OnClickListener, GeocodeSearch.OnGeocodeSearchListener, AMap.OnMarkerClickListener {
+    /**
+     * the mapView of Gaode
+     */
     @Bind(R.id.mv_main)
     MapView mapView;
-
+    /**
+     * the input box
+     */
     @Bind(R.id.atv_map_input)
     AutoCompleteTextView mKeywordText;
-
+    /**
+     * the button of clean input text
+     */
     @Bind(R.id.iv_clean_input)
     ImageView ivCleanInput;
-
+    /**
+     * the listView used to show the retrieve data
+     */
     @Bind(R.id.lv_map)
     ListView minPutListView;
-
+    /**
+     * the controls of enter route plan
+     */
     @Bind(R.id.iv_enter_route)
     ImageView ivEnterRoute;
+    /**
+     * show the data of near
+     */
+    @Bind(R.id.rv_map_data)
+    RecyclerView rvMapData;
+
     private AMap aMap;
 
     private MyLocationStyle myLocationStyle;
@@ -76,7 +107,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
 
     private UiSettings mUiSettings;
 
-    private String city = "株洲";
+    private static String city = "株洲";
 
     private List<String> queryResults;
 
@@ -86,6 +117,9 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
 
     private GeocodeSearch geocodeSearch;
 
+    private NearJobAdapter mNearJobAdapter;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,7 +128,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         mapView.onCreate(savedInstanceState);
         mMapPresenter = new MapPresenter();
         mMapPresenter.attachView(this);
-        mMapPresenter.initMapView();
+        mMapPresenter.initMapView(city);
         MapPresenter.mMapView = mapView;
         ivCleanInput.setOnClickListener(this);
         mKeywordText.addTextChangedListener(this);
@@ -121,6 +155,10 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         progressDialog = new ProgressDialog(getActivity());
         geocodeSearch = new GeocodeSearch(getActivity());
         geocodeSearch.setOnGeocodeSearchListener(this);
+        rvMapData.setLayoutManager(new LinearLayoutManager(mActivity));
+        mNearJobAdapter=new NearJobAdapter(null);
+        rvMapData.setAdapter(mNearJobAdapter);
+
     }
 
     @Override
@@ -163,6 +201,24 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     }
 
     @Override
+    public void loadNearJobInformationComplete(List<Job> jobs) {
+        mNearJobAdapter.addData(jobs);
+        mMapPresenter.setListenerForAdapter();
+    }
+
+    @Override
+    public void setItemClickListener(NearJobAdapter.OnNearJobItemClick onNearJobItemClick) {
+        mNearJobAdapter.setOnNearJobItemClick(onNearJobItemClick);
+    }
+
+    @Override
+    public void startDetailsView(Job job) {
+        JobDetailsPresenter.jobContent=job;
+        mActivity.startActivity(new Intent(mActivity,JobDetailsActivity.class));
+    }
+
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
@@ -180,7 +236,15 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     @Override
     public void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
 
     /**
      * 方法必须重写
@@ -230,7 +294,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
             Bundle bundle = location.getExtras();
             if (bundle != null) {
                 RouteActivity.mStartPoint = new LatLonPoint(location.getLatitude(), location.getLongitude());
-                RouteActivity.mStartPoint_bus=new LatLonPoint(location.getLatitude(), location.getLongitude());
+                RouteActivity.mStartPoint_bus = new LatLonPoint(location.getLatitude(), location.getLongitude());
             } else {
                 LogUtils.log("bundle is null");
             }
@@ -286,7 +350,13 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
             List<HashMap<String, String>> listString = new ArrayList<HashMap<String, String>>();
             queryResults = null;
             queryResults = new ArrayList<>();
+            HashMap<String, String> map1 = new HashMap<String, String>();
+            map1.put("name",mKeywordText.getText().toString());
+            map1.put("address","");
+            listString.add(map1);
+            queryResults.add(mKeywordText.getText().toString());
             for (int i = 0; i < tipList.size(); i++) {
+
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("name", tipList.get(i).getName());
                 map.put("address", tipList.get(i).getDistrict());
@@ -336,9 +406,15 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
                         .getLatLonPoint()));
                 String addressName = "经纬度值:" + address.getLatLonPoint() + "\n位置描述:"
                         + address.getFormatAddress();
+                geoMarker.setTitle("查询位置");
+                geoMarker.setSnippet(address.getFormatAddress());
+                geoMarker.showInfoWindow();
                 RouteActivity.mEndPoint = address.getLatLonPoint();
-                RouteActivity.mEndPoint_bus=address.getLatLonPoint();
-                LogUtils.log(addressName);
+                RouteActivity.mEndPoint_bus = address.getLatLonPoint();
+                if (mMapPresenter.isType_navigation){
+                    mMapPresenter.enterRoutePlan();
+                    mMapPresenter.isType_navigation=false;
+                }
             } else {
                 Toast.makeText(mActivity, "查询不到结果", Toast.LENGTH_SHORT).show();
             }
@@ -352,5 +428,11 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     public boolean onMarkerClick(Marker marker) {
 
         return false;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(String event) {
+        city=event;
+        mMapPresenter.loadNearData(event);
     }
 }

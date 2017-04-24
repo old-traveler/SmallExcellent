@@ -116,47 +116,6 @@
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/rl_collection"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_width="match_parent"
-            android:layout_height="38dp">
-            <ImageView
-                android:layout_marginBottom="7dp"
-                android:layout_marginTop="7dp"
-                android:id="@+id/iv_collection"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/iv_collection"
-                android:layout_width="45dp"
-                android:layout_height="45dp" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="14sp"
-                android:textColor="@color/text_color_personal"
-                android:layout_centerVertical="true"
-                android:text="收藏"
-                android:layout_toRightOf="@id/iv_collection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:layout_centerVertical="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_width="20dp"
-                android:layout_height="15dp" />
-            <View
-                android:layout_marginLeft="60dp"
-                android:layout_width="match_parent"
-                android:layout_height="0.5px"
-                android:background="@color/item_diem_personal"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-        <RelativeLayout
             android:id="@+id/rl_footprint"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"

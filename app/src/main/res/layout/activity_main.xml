@@ -61,6 +61,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/ll_main_button"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:visibility="gone"
+            android:src="@drawable/ic_refesh"
+            android:id="@+id/fb_main_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="54dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </android.support.design.widget.CollapsingToolbarLayout>

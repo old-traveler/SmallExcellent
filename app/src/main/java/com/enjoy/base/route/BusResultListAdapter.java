@@ -63,12 +63,12 @@ public class BusResultListAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mContext.getApplicationContext(),
-						BusRouteDetailActivity.class);
-				intent.putExtra("bus_path", item);
-				intent.putExtra("bus_result", mBusRouteResult);
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				mContext.startActivity(intent);
+//				Intent intent = new Intent(mContext.getApplicationContext(),
+//						BusRouteDetailActivity.class);
+//				intent.putExtra("bus_path", item);
+//				intent.putExtra("bus_result", mBusRouteResult);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				mContext.startActivity(intent);
 				
 			}
 		});

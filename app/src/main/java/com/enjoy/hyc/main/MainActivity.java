@@ -3,8 +3,8 @@ package com.enjoy.hyc.main;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -20,7 +20,6 @@ import com.enjoy.base.MvpActivity;
 import com.enjoy.hyc.map.MapDetailsFragment;
 import com.enjoy.hyc.map.MapPresenter;
 import com.enjoy.hyc.personal.PersonalFragment;
-import com.enjoy.hyc.publishjob.PublishActivity;
 import com.enjoy.hyc.query.QueryFragment;
 
 import java.util.ArrayList;
@@ -49,6 +48,8 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
     LinearLayout llMainButton;
     @Bind(R.id.fl_main_fragment)
     FrameLayout flMainFragment;
+    @Bind(R.id.fb_main_refresh)
+    FloatingActionButton fbMainRefresh;
     private List<Fragment> fragments;
 
     private int currentPosition = 0;
@@ -79,30 +80,30 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         transaction.replace(R.id.fl_main_fragment, fragments.get(0));
         transaction.commit();
         flMainFragment.getViewTreeObserver().addOnGlobalLayoutListener(
-             new ViewTreeObserver.OnGlobalLayoutListener() {
-                 @Override
-                 public void onGlobalLayout() {
-                     int heightDiff = flMainFragment.getRootView()
-                             .getHeight() - flMainFragment.getHeight();
-                     if (heightDiff > 500) {
-                         mvpPresenter.isHideBottom(false);
-                     }else {
-                         mvpPresenter.isHideBottom(true);
-                     }
-                 }
-             });
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        int heightDiff = flMainFragment.getRootView()
+                                .getHeight() - flMainFragment.getHeight();
+                        if (heightDiff > 500) {
+                            mvpPresenter.isHideBottom(false);
+                        } else {
+                            mvpPresenter.isHideBottom(true);
+                        }
+                    }
+                });
     }
 
     @Override
     public void replaceFragment(int position) {
         if (position != currentPosition) {
-            if (position==0){
+            if (position == 0) {
                 fragments.remove(0);
-                fragments.add(0,new MapDetailsFragment());
-            }else if (currentPosition==0& MapPresenter.mMapView!=null){
+                fragments.add(0, new MapDetailsFragment());
+            } else if (currentPosition == 0 & MapPresenter.mMapView != null) {
                 MapPresenter.mMapView.setVisibility(View.GONE);
                 MapPresenter.mMapView.onDestroy();
-                MapPresenter.mMapView=null;
+                MapPresenter.mMapView = null;
             }
             FragmentManager mainFragmentManager = getFragmentManager();
             FragmentTransaction transaction = mainFragmentManager.beginTransaction();
@@ -112,20 +113,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         }
     }
 
-    @OnClick({R.id.rl_location_fragment, R.id.rl_query_part_time, R.id.rl_personal_fragment})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rl_location_fragment:
-                mvpPresenter.replaceFragment(0);
-                break;
-            case R.id.rl_query_part_time:
-                mvpPresenter.replaceFragment(1);
-                break;
-            case R.id.rl_personal_fragment:
-                mvpPresenter.replaceFragment(2);
-                break;
-        }
-    }
 
 
     @Override
@@ -133,13 +120,15 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         ivMap.setImageResource(R.drawable.ic_map_normal);
         ivPersonal.setImageResource(R.drawable.ic_personal_normal);
         ivQuery.setImageResource(R.drawable.ic_query_normal);
-        switch (position){
+        switch (position) {
             case 0:
                 ivMap.setImageResource(R.drawable.ic_map_selected);
                 break;
-            case 1:ivQuery.setImageResource(R.drawable.ic_query_selected);
+            case 1:
+                ivQuery.setImageResource(R.drawable.ic_query_selected);
                 break;
-            case 2:ivPersonal.setImageResource(R.drawable.ic_personal_selected);
+            case 2:
+                ivPersonal.setImageResource(R.drawable.ic_personal_selected);
                 break;
         }
     }
@@ -155,7 +144,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         locationClientOption.setNeedAddress(true);
         //设置是否只定位一次
         locationClientOption.setOnceLocation(true);
-        if(locationClientOption.isOnceLocation()){
+        if (locationClientOption.isOnceLocation()) {
             locationClientOption.setOnceLocationLatest(true);
         }
         //设置是否强制刷新WiFi
@@ -176,9 +165,35 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
 
     @Override
     public void isVisibleBottomLayout(boolean isShow) {
-        llMainButton.setVisibility(isShow?View.VISIBLE:View.GONE);
+        llMainButton.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void positioningFail() {
+        fbMainRefresh.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void positioningSuccess() {
+        fbMainRefresh.setVisibility(View.GONE);
     }
 
 
-
+    @OnClick({R.id.rl_location_fragment, R.id.rl_query_part_time, R.id.rl_personal_fragment, R.id.fb_main_refresh})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_location_fragment:
+                mvpPresenter.replaceFragment(0);
+                break;
+            case R.id.rl_query_part_time:
+                mvpPresenter.replaceFragment(1);
+                break;
+            case R.id.rl_personal_fragment:
+                mvpPresenter.replaceFragment(2);
+                break;
+            case R.id.fb_main_refresh:
+                mvpPresenter.getLocation();
+                break;
+        }
+    }
 }

@@ -45,6 +45,8 @@ public class BusRouteDetailActivity extends Activity implements OnMapLoadedListe
 		init();
 	}
 
+
+
 	private void getIntentData() {
 		Intent intent = getIntent();
 		if (intent != null) {

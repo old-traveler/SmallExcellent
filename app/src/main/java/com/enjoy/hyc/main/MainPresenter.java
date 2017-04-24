@@ -46,12 +46,19 @@ public class MainPresenter extends BasePresenter<MainContract> implements AMapLo
             currentCityName=aMapLocation.getCity();
             Toast.makeText(SmallApplication.getContext(), "当前位置："+aMapLocation.getAddress(), Toast.LENGTH_SHORT).show();
             EventBus.getDefault().post(aMapLocation.getCity());
+            mvpView.positioningSuccess();
         }else {
-            LogUtils.log(aMapLocation.getErrorInfo());
+            Toast.makeText(SmallApplication.getContext(), "定位失败,稍后再试", Toast.LENGTH_SHORT).show();
+            mvpView.positioningFail();
         }
     }
 
     public void isHideBottom(boolean is){
         mvpView.isVisibleBottomLayout(is);
     }
+
+    public void getLocation(){
+        mvpView.getLocationMessage();
+    }
 }
+

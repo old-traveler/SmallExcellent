@@ -31,11 +31,6 @@ public class PersonalFragment extends MvpFragment<PersonalPresenter> implements 
     @Bind(R.id.rl_work_record)
     RelativeLayout rlWorkRecord;
     /**
-     * record of collection options,click it will look over the work of collection
-     */
-    @Bind(R.id.rl_collection)
-    RelativeLayout rlCollection;
-    /**
      * footprint options
      */
     @Bind(R.id.rl_footprint)
@@ -94,14 +89,12 @@ public class PersonalFragment extends MvpFragment<PersonalPresenter> implements 
      * event of controls's click
      * @param view controls
      */
-    @OnClick({R.id.rl_salary_bill, R.id.rl_work_record, R.id.rl_collection, R.id.rl_footprint, R.id.rl_my_publish, R.id.rl_my_resume, R.id.rl_setting})
+    @OnClick({R.id.rl_salary_bill, R.id.rl_work_record,R.id.rl_footprint, R.id.rl_my_publish, R.id.rl_my_resume, R.id.rl_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_salary_bill:
                 break;
             case R.id.rl_work_record:
-                break;
-            case R.id.rl_collection:
                 break;
             case R.id.rl_footprint:
                 break;

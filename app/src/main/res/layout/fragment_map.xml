@@ -9,22 +9,21 @@
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp">
+                android:layout_height="300dp">
                 <com.amap.api.maps.MapView
                     android:id="@+id/mv_main"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"/>
 
                 <LinearLayout
-
                     android:id="@+id/ll_map_edit"
                     android:orientation="horizontal"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="50dp"
                     android:background="@color/map_edit_background"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp">
+                    android:layout_height="50dp">
                     <ImageView
                         android:id="@+id/iv_enter_route"
                         android:layout_marginLeft="10dp"
@@ -61,7 +60,7 @@
                 <ListView
                     android:id="@+id/lv_map"
                     android:background="@color/map_edit_background"
-                    android:layout_marginLeft="55dp"
+                    android:layout_marginLeft="35dp"
                     android:layout_below="@id/ll_map_edit"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content">
@@ -70,8 +69,10 @@
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_map_data"
                 android:layout_width="match_parent"
-                android:layout_height="600dp">
+                android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
+
 </android.support.design.widget.CollapsingToolbarLayout>

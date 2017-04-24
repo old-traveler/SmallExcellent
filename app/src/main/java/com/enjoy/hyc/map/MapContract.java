@@ -2,6 +2,9 @@ package com.enjoy.hyc.map;
 
 import android.widget.ListView;
 
+import com.enjoy.hyc.adapter.NearJobAdapter;
+import com.enjoy.hyc.bean.Job;
+
 import java.util.List;
 
 /**
@@ -9,6 +12,7 @@ import java.util.List;
  */
 
 public interface MapContract {
+
 
     void initMap();
 
@@ -23,4 +27,10 @@ public interface MapContract {
     void getLocationByName(final String name);
 
     void startRoutePlan();
+
+    void loadNearJobInformationComplete(List<Job> jobs);
+
+    void setItemClickListener(NearJobAdapter.OnNearJobItemClick onNearJobItemClick);
+
+    void startDetailsView(Job job);
 }
