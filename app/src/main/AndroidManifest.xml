@@ -28,7 +28,9 @@
             android:name="com.amap.api.v2.apikey"
             android:value="d32e2e78434c99d49c3150ea8ad0bdab">
             //开发者申请的key</meta-data>
-        <activity android:name=".hyc.main.MainActivity"
+
+        <activity
+            android:name=".hyc.main.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,8 +42,11 @@
         <activity android:name=".base.route.RideRouteDetailActivity" />
         <activity android:name=".base.route.WalkRouteDetailActivity" />
         <activity android:name=".base.route.RouteActivity" />
-        <activity android:name=".hyc.publishjob.PublishActivity"/>
-        <activity android:name=".hyc.jobdetails.JobDetailsActivity"/>
+        <activity android:name=".hyc.publishjob.PublishActivity" />
+        <activity android:name=".hyc.jobdetails.JobDetailsActivity" />
+        <activity android:name=".hyc.login.LoginActivity" />
+        <activity android:name=".hyc.register.RegisterActivity" />
+        <activity android:name=".hyc.setting.SettingActivity"/>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.enjoy.R;
 import com.enjoy.base.BaseFragment;
 import com.enjoy.base.MvpFragment;
+import com.enjoy.hyc.setting.SettingActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -103,6 +104,7 @@ public class PersonalFragment extends MvpFragment<PersonalPresenter> implements 
             case R.id.rl_my_resume:
                 break;
             case R.id.rl_setting:
+                startActivity(SettingActivity.class);
                 break;
         }
     }

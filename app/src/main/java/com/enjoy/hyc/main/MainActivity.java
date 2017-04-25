@@ -28,6 +28,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends MvpActivity<MainPresenter> implements MainContract {
 
@@ -61,6 +62,8 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         ButterKnife.bind(this);
         mvpPresenter.attachView(this);
         mvpPresenter.initFragment();
+        addActivity(this);
+
     }
 
     @Override

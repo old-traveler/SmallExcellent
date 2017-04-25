@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.enjoy.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
@@ -30,6 +33,8 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    private static List<BaseActivity> activities;
 
     public Toolbar mToolbar;
 
@@ -178,6 +183,24 @@ public class BaseActivity extends AppCompatActivity {
 
     public void logD(String TAG,String msg){
         Log.d(TAG,msg);
+    }
+
+    public void addActivity(BaseActivity baseActivity){
+        LogUtils.log("添加activity"+baseActivity.getLocalClassName());
+        if (activities==null){
+            activities=new ArrayList<>();
+        }
+        activities.add(baseActivity);
+    }
+
+    public void finishAll(){
+        LogUtils.log("存在的activity数目"+activities.size());
+        for (BaseActivity activity:activities){
+            if (activity!=null){
+                activity.finish();
+                LogUtils.log("finish activity"+activity.getLocalClassName());
+            }
+        }
     }
 
 
