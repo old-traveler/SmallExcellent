@@ -9,7 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="@color/load_color"
+        android:id="@+id/rv_detail_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.mingle.widget.LoadingView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
     <ScrollView
+        android:id="@+id/sv_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -312,7 +323,7 @@
                 android:layout_width="180dp"
                 android:layout_height="37dp"
                 android:background="@drawable/btn_query_background"
-                android:text="报名参加"
+                android:text="申请兼职"
                 android:textColor="#ffffff"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"

@@ -6,4 +6,6 @@ package com.enjoy.hyc.personal;
 
 public interface PersonalContract {
     void startActivity(Class<?> activity);
+
+    void enterLogin();
 }

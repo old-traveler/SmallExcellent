@@ -51,6 +51,8 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'
     compile 'com.android.support:cardview-v7:21.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'org.litepal.android:core:1.5.1'
     testCompile 'junit:junit:4.12'
 }

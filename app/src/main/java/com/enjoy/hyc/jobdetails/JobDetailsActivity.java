@@ -2,11 +2,14 @@ package com.enjoy.hyc.jobdetails;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.enjoy.R;
-import com.enjoy.base.LogUtils;
 import com.enjoy.base.MvpActivity;
 import com.enjoy.hyc.bean.Job;
 
@@ -23,6 +26,8 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
 
     @Bind(R.id.tb_job_details)
     Toolbar tbJobDetails;
+    @Bind(R.id.rv_detail_loading)
+    RelativeLayout rvDetailLoading;
     @Bind(R.id.job_detail_name_txt)
     TextView jobDetailNameTxt;
     @Bind(R.id.job_salary_txt)
@@ -51,6 +56,8 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
     TextView jobDemandTxt;
     @Bind(R.id.btn_apply_job)
     Button btnApplyJob;
+    @Bind(R.id.sv_details)
+    ScrollView svDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +82,14 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
     @Override
     public void loadJobContent(Job job) {
 
-        jobSalaryTxt.setText(job.getJobSalary()+"");
+        jobSalaryTxt.setText(job.getJobSalary() + "");
         tvModeTxt.setText("元/" + job.getBalanceMode().split("结")[0]);
-        rmnumberTxt.setText(job.getRecruitmentNumber()+"人");
+        rmnumberTxt.setText(job.getRecruitmentNumber() + "人");
         jregionTxt.setText(job.getJobRegion());
         deadlineTxt.setText(job.getDeadline());
         workTimeTxt.setText(job.getWorkInterval());
         publisherTxt.setText(job.getPublisher());
-        contactNumberTxt.setText(job.getContactNumber()+"");
+        contactNumberTxt.setText(job.getContactNumber() + "");
         contactAddressTxt.setText(job.getContactAddress());
         jobDescribeTxt.setText(job.getJobDescribe());
         jobDemandTxt.setText(job.getJobDemand());
@@ -90,7 +97,59 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
         workIntervalTxt.setText(job.getWorkDayTime() + "天");
     }
 
+    @Override
+    public void applySuccess() {
+        Toast.makeText(mActivity, "申请成功", Toast.LENGTH_SHORT).show();
+        btnApplyJob.setText("已申请");
+    }
+
+    @Override
+    public void applyFail(String error) {
+        btnApplyJob.setText("申请兼职");
+        btnApplyJob.setClickable(true);
+        Toast.makeText(mActivity, error + "申请失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void applying() {
+        btnApplyJob.setText("申请中...");
+        btnApplyJob.setClickable(false);
+    }
+
+    @Override
+    public void notLogin() {
+        btnApplyJob.setText("请先登录");
+        btnApplyJob.setClickable(false);
+    }
+
+    @Override
+    public void haveApply() {
+        rvDetailLoading.setVisibility(View.GONE);
+        svDetails.setVisibility(View.VISIBLE);
+        btnApplyJob.setText("已申请");
+        btnApplyJob.setClickable(false);
+    }
+
+    @Override
+    public void verifyHaveApply() {
+        rvDetailLoading.setVisibility(View.VISIBLE);
+        svDetails.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void haveNotApply() {
+        rvDetailLoading.setVisibility(View.GONE);
+        svDetails.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void verifyError() {
+        rvDetailLoading.setVisibility(View.GONE);
+        Toast.makeText(mActivity, "网络不给力", Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick(R.id.btn_apply_job)
     public void onViewClicked() {
+        mvpPresenter.applyJob();
     }
 }

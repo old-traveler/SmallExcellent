@@ -1,7 +1,6 @@
 package com.enjoy.hyc.map;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -9,18 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -50,6 +44,7 @@ import com.enjoy.hyc.adapter.NearJobAdapter;
 import com.enjoy.hyc.bean.Job;
 import com.enjoy.hyc.jobdetails.JobDetailsActivity;
 import com.enjoy.hyc.jobdetails.JobDetailsPresenter;
+import com.enjoy.hyc.util.JobCacheUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -214,6 +209,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     @Override
     public void startDetailsView(Job job) {
         JobDetailsPresenter.jobContent=job;
+        JobCacheUtil.produceNewBrowse(job);
         mActivity.startActivity(new Intent(mActivity,JobDetailsActivity.class));
     }
 

@@ -1,6 +1,5 @@
 package com.enjoy.hyc.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
@@ -10,6 +9,7 @@ import com.enjoy.R;
 import com.enjoy.hyc.bean.Job;
 import com.enjoy.hyc.jobdetails.JobDetailsActivity;
 import com.enjoy.hyc.jobdetails.JobDetailsPresenter;
+import com.enjoy.hyc.util.JobCacheUtil;
 
 import java.util.List;
 
@@ -35,6 +35,7 @@ public class QueryJobAdapter extends BaseQuickAdapter<Job> {
                 @Override
                 public void onClick(View v) {
                     JobDetailsPresenter.jobContent=job;
+                    JobCacheUtil.produceNewBrowse(job);//产生一个浏览记录
                     mContext.startActivity(new Intent(mContext, JobDetailsActivity.class));
                 }
             });

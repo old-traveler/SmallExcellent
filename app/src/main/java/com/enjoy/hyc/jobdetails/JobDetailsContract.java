@@ -10,4 +10,19 @@ public interface JobDetailsContract {
 
     void loadJobContent(Job job);
 
+    void applySuccess();
+
+    void applyFail(String error);
+
+    void applying();
+
+    void notLogin();
+
+    void haveApply();
+
+    void verifyHaveApply();
+
+    void haveNotApply();
+
+    void verifyError();
 }

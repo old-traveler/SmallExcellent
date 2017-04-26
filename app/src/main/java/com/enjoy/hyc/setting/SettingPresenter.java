@@ -15,8 +15,8 @@ public class SettingPresenter extends BasePresenter<SettingContract> {
      */
     public void enterInterface(int position){
         switch (position){
-            case 0:break;
-            case 1:break;
+            case 0:mvpView.enterAccountSafe();break;
+            case 1:mvpView.enterAboutUs();break;
             case 2:mvpView.enterLogin();break;
         }
     }

@@ -7,8 +7,10 @@
         android:background="@color/stateColor"
         android:layout_width="match_parent"
         android:layout_height="130dp">
-        <ImageView
-            android:id="@+id/iv_my_head"
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_width="2dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cv_my_head"
             android:src="@drawable/ico_tabbar_user"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="40dp"

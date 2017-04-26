@@ -8,11 +8,14 @@ import android.widget.TextView;
 
 import com.enjoy.R;
 import com.enjoy.base.MvpActivity;
+import com.enjoy.hyc.account.AccountSafeActivity;
 import com.enjoy.hyc.login.LoginActivity;
+import com.enjoy.hyc.util.JobCacheUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
 
 public class SettingActivity extends MvpActivity<SettingPresenter> implements SettingContract {
 
@@ -58,7 +61,7 @@ public class SettingActivity extends MvpActivity<SettingPresenter> implements Se
 
     @Override
     public void enterAccountSafe() {
-
+        startActivity(new Intent(this, AccountSafeActivity.class));
     }
 
     @Override
@@ -68,6 +71,8 @@ public class SettingActivity extends MvpActivity<SettingPresenter> implements Se
 
     @Override
     public void enterLogin() {
+        BmobUser.logOut();
+        JobCacheUtil.deleteAll();
         startActivity(new Intent(this,LoginActivity.class));
         finishAll();
     }

@@ -46,7 +46,14 @@
         <activity android:name=".hyc.jobdetails.JobDetailsActivity" />
         <activity android:name=".hyc.login.LoginActivity" />
         <activity android:name=".hyc.register.RegisterActivity" />
-        <activity android:name=".hyc.setting.SettingActivity"/>
+        <activity android:name=".hyc.setting.SettingActivity" />
+        <activity android:name=".hyc.account.AccountSafeActivity" />
+        <activity
+            android:name=".hyc.editresume.EditResumeActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".hyc.resume.ResumeActivity" />
+        <activity android:name=".hyc.footprint.FootprintActivity" />
+        <activity android:name=".hyc.record.RecordActivity"></activity>
     </application>
 
 </manifest>

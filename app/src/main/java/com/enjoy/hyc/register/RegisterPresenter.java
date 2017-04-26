@@ -21,7 +21,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract> {
                 }
 
                 @Override
-                public void loginFail(String error) {
+                public void registerFail(String error) {
                     mvpView.registerFail();
                 }
             });

@@ -42,14 +42,18 @@ public class BaseActivity extends AppCompatActivity {
 
     public Activity mActivity;
 
+    public boolean isNoStateColor=true;
+
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
         mActivity = this;
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.stateColor));
+        if (isNoStateColor){
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.stateColor));
+        }
     }
 
 

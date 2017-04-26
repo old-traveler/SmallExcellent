@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:id="@+id/et_register_password"
                 android:background="@color/white"
@@ -78,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:id="@+id/et_confirm_password"
                 android:background="@color/white"

@@ -3,6 +3,7 @@ package com.enjoy.base;
 import android.app.Application;
 import android.content.Context;
 
+import org.litepal.LitePal;
 import cn.bmob.v3.Bmob;
 
 /**
@@ -21,6 +22,7 @@ public class SmallApplication extends Application{
         super.onCreate();
         Bmob.initialize(this, "0f0f549a85e06ef1fe438b03e73347ed");
         context=getApplicationContext();
+        LitePal.initialize(this);
     }
 
 
