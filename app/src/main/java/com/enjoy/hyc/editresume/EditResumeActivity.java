@@ -87,7 +87,11 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
         user.setName(etEditName.getText().toString());
         user.setSex(etEditSex.getText().toString());
         user.setAge(etEditAge.getText().toString());
-        user.setHeight(Integer.parseInt(etEditHeight.getText().toString()));
+        if (TextUtils.isEmpty(etEditHeight.getText().toString())){
+            user.setHeight(0);
+        }else {
+            user.setHeight(Integer.parseInt(etEditHeight.getText().toString()));
+        }
         user.setCity(etEditProvince.getText().toString() + "-" + etEditCity.getText().toString() + "-" + etEditArea.getText().toString());
         user.setSchool(etEditSchool.getText().toString());
         user.setQqNumber(etEditQq.getText().toString());

@@ -144,6 +144,7 @@
                     android:text="年龄："
                     android:textSize="13dp" />
                 <EditText
+                    android:inputType="number"
                     android:background="@color/map_edit_background"
                     android:id="@+id/et_edit_age"
                     android:layout_width="match_parent"
@@ -168,6 +169,7 @@
                     android:text="身高："
                     android:textSize="13dp" />
                 <EditText
+                    android:inputType="number"
                     android:background="@color/map_edit_background"
                     android:id="@+id/et_edit_height"
                     android:layout_width="match_parent"
@@ -300,6 +302,7 @@
                     android:layout_marginTop="15dp"
                     android:text="自我简介" />
                 <EditText
+
                     android:id="@+id/et_edit_self"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

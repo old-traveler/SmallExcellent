@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -14,7 +15,6 @@
                     android:id="@+id/mv_main"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"/>
-
                 <LinearLayout
                     android:id="@+id/ll_map_edit"
                     android:orientation="horizontal"

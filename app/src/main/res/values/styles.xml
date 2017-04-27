@@ -9,11 +9,11 @@
         <item name="android:windowTranslucentStatus">false</item>
     </style>
 
-    <style name="activityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="activityTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/stateColor</item>
         <item name="colorPrimaryDark">@color/stateColor</item>
         <item name="colorAccent">@color/stateColor</item>
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

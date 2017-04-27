@@ -30,6 +30,7 @@
             //开发者申请的key</meta-data>
 
         <activity
+            android:theme="@style/activityTheme"
             android:name=".hyc.main.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -53,7 +54,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".hyc.resume.ResumeActivity" />
         <activity android:name=".hyc.footprint.FootprintActivity" />
-        <activity android:name=".hyc.record.RecordActivity"></activity>
+        <activity android:name=".hyc.record.RecordActivity" />
+        <activity android:name=".hyc.payroll.PayrollActivity"/>
     </application>
 
 </manifest>
