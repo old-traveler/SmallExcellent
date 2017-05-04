@@ -317,7 +317,7 @@ public class QueryFragment extends MvpFragment<QueryPresenter> implements QueryC
                 break;
             case R.id.btn_query_job:
                 mvpPresenter.query(getContentOfTextView(tvType), getContentOfTextView(tvSalary)
-                        , getContentOfTextView(tvTime), getContentOfTextView(tvPlace), isLimit);
+                        , getContentOfTextView(tvTime),getContentOfTextView(tvPlace), getContentOfTextView(etQueryInput),isLimit);
                 break;
             case R.id.fb_query_back:
                 mvpPresenter.continueToQuery();

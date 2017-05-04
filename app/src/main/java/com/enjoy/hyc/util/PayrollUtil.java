@@ -20,25 +20,30 @@ import java.util.Locale;
  */
 
 public class PayrollUtil {
-
+    /**
+     * 其他兼职的收入
+     */
     public static int otherIncome=0;
 
-    public static List<Payroll> countPayrollByMoonlighting(List<Moonlighting> moonlightings){
+    /**
+     * 通过兼职数据集合计算出每个兼职工作对应的工资单信息，未开始的兼职工作不计算
+     * @param moonLighting 兼职数据
+     * @return
+     */
+    public static List<Payroll> countPayrollByMoonlighting(List<Moonlighting> moonLighting){
         List<Payroll> payrolls=new ArrayList<>();
         payrolls=new ArrayList<>();
         long currentTime=System.currentTimeMillis();
         String today=new SimpleDateFormat("yyyy/MM/dd").format(new Date(currentTime));
 
-        for (Moonlighting moon:moonlightings) {
+        for (Moonlighting moon:moonLighting) {
             if (!countDateAfterTime(moon.getJob().getDeadline(),today)){
                 LogUtils.log(moon.getJob().getDeadline());
                 long temp= currentTime - (moon.getJob().getWorkDayTime()-1)*24L*60L*60L*1000L;
                 //对应的兼职的开始时间
                 String strDate=new SimpleDateFormat("yyyy/MM/dd").format(new Date(temp));
-                LogUtils.log("兼职开始的时间："+strDate);
                 if (!countDateAfterTime(moon.getJob().getDeadline(),strDate)){
                     //该兼职已完成
-
                     for (int i = 1; i <=moon.getJob().getWorkDayTime(); i++) {
                         String time="";
                         Payroll p=new Payroll();
@@ -98,19 +103,38 @@ public class PayrollUtil {
         return payrolls;
     }
 
-
-
+    /**
+     * 计算data日期是否在time之后
+     * @param date
+     * @param time
+     * @return true  date日期在time之后
+     */
     private static boolean countDateAfterTime(String date,String time){
         return Integer.parseInt(date.split("/")[0])>Integer.parseInt(time.split("/")[0])
-                ||Integer.parseInt(date.split("/")[1])>Integer.parseInt(time.split("/")[1])
-                ||Integer.parseInt(date.split("/")[2])>Integer.parseInt(time.split("/")[2]);
+                || Integer.parseInt(date.split("/")[0])==Integer.parseInt(time.split("/")[0])
+                && Integer.parseInt(date.split("/")[1])> Integer.parseInt(time.split("/")[1])
+                || Integer.parseInt(date.split("/")[0])==Integer.parseInt(time.split("/")[0])
+                && Integer.parseInt(date.split("/")[1])==Integer.parseInt(time.split("/")[1])
+                && Integer.parseInt(date.split("/")[2])>=Integer.parseInt(time.split("/")[2]);
     }
 
+    /**
+     * 将String类型的日期转化为Date型数据
+     * @param time
+     * @return
+     * @throws ParseException  格式错误对象
+     */
     public static Date stringToDate(String time) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat( "yyyy/MM/dd");
         return formatter.parse(time);
     }
 
+    /**
+     * 计算两个Date日期对象之间相差的天数
+     * @param fDate
+     * @param oDate
+     * @return
+     */
     public static int daysOfTwo(Date fDate, Date oDate) {
         Calendar aCalendar = Calendar.getInstance();
         aCalendar.setTime(fDate);
@@ -120,6 +144,10 @@ public class PayrollUtil {
         return day2 - day1;
     }
 
+    /**
+     * 将计算好的工资单对象信息集合按时间排序
+     * @param payrolls
+     */
     public static void sort(List<Payroll> payrolls){
         Collections.sort(payrolls, new Comparator<Payroll>() {
             @Override
@@ -131,6 +159,13 @@ public class PayrollUtil {
 
     }
 
+    /**
+     * 通过工资单中工作类型来计算收入
+     * @param type
+     * @param mayType
+     * @param payrolls
+     * @return
+     */
     public static int countIncomeType(String type,String mayType,List<Payroll> payrolls){
         int income=0;
         for (Payroll payroll:payrolls){
@@ -143,6 +178,11 @@ public class PayrollUtil {
         return income;
     }
 
+    /**
+     * 计算当前用户的收入总计
+     * @param payrolls
+     * @return
+     */
     public static int countTotal(List<Payroll> payrolls){
         int income=0;
         for (Payroll payroll:payrolls){
@@ -151,6 +191,11 @@ public class PayrollUtil {
         return income;
     }
 
+    /**
+     * 通过工资单信息集合计算今日收入
+     * @param payrolls
+     * @return
+     */
     public static int countTodayIncome(List<Payroll> payrolls){
         int income=0;
         String strDate=new SimpleDateFormat("yyyy/MM/dd").format(new Date(System.currentTimeMillis()));
@@ -162,6 +207,11 @@ public class PayrollUtil {
         return income;
     }
 
+    /**
+     * 计算工作类型中其他的收入
+     * @param payrolls
+     * @return
+     */
     public static int countOther(List<Payroll> payrolls){
         int income=countTotal(payrolls)-otherIncome;
         otherIncome=0;

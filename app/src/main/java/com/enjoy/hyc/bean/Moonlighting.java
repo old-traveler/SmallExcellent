@@ -7,9 +7,13 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class Moonlighting extends BmobObject {
-
+    /**
+     * 对应的兼职工作
+     */
     Job job;
-
+    /**
+     * 对应的报名用户
+     */
     User user;
 
     public Job getJob() {

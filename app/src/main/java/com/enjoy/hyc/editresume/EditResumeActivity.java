@@ -61,7 +61,6 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
 
     private static final int IMAGE = 0x018;
 
-    private boolean isReplaceImage=false;
 
 
     @Override
@@ -79,7 +78,10 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
         return new EditResumePresenter();
     }
 
-
+    /**
+     * 获取更新的用户对象
+     * @return 需要更新的用户信息
+     */
     @Override
     public User getUpdateUser() {
         showProgressDialog();
@@ -100,6 +102,10 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
         return user;
     }
 
+    /**
+     * 显示当前用户简历信息
+     * @param user 当前用户
+     */
     @Override
     public void showCurrentUserResume(User user) {
         if (!TextUtils.isEmpty(user.getHeadImageUrl())) {
@@ -123,6 +129,9 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
         etEditObjective.setText(TextUtils.isEmpty(user.getObjective()) ? "" : user.getObjective());
     }
 
+    /**
+     * 修改成功的界面提示
+     */
     @Override
     public void showEditSuccess() {
         dismissProgressDialog();
@@ -131,29 +140,42 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
         finish();
     }
 
+    /**
+     * 修改失败的界面提示
+     */
     @Override
     public void showEditFail() {
         dismissProgressDialog();
         Toast.makeText(mActivity, "修改失败", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 调用系统系统相册
+     */
     @Override
     public void callSystemPhotoAlbum() {
-        showProgressDialog();
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMAGE);
     }
 
+    /**
+     * 展示缩放图片
+     * @param path 图片地址
+     */
     @Override
     public void showZoomPhoto(String path) {
         Glide.with(mActivity)
                 .load(path)
                 .into(ivShooting);
         dismissProgressDialog();
-        isReplaceImage=true;
+
     }
 
+    /**
+     * 点击事件
+     * @param view iv_exit_edit退出界面按钮  tv_save_edit保存编辑后的控件  iv_shooting 修改头像控件
+     */
     @OnClick({R.id.iv_exit_edit, R.id.tv_save_edit, R.id.iv_shooting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -170,6 +192,12 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
         }
     }
 
+    /**
+     * 获取用户调用系统相册选择的图片进行头像更新
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -179,6 +207,7 @@ public class EditResumeActivity extends MvpActivity<EditResumePresenter> impleme
             Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
             c.moveToFirst();
             int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            showProgressDialog();
             mvpPresenter.setImagePath(c.getString(columnIndex));
             c.close();
         }

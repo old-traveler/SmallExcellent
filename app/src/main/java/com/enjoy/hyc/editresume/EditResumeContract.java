@@ -18,6 +18,5 @@ public interface EditResumeContract {
 
     void callSystemPhotoAlbum();
 
-
     void showZoomPhoto(String path);
 }

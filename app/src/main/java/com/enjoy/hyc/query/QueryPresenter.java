@@ -1,5 +1,7 @@
 package com.enjoy.hyc.query;
 
+import android.text.TextUtils;
+
 import com.enjoy.base.BasePresenter;
 import com.enjoy.base.LogUtils;
 import com.enjoy.hyc.bean.Job;
@@ -48,7 +50,7 @@ public class QueryPresenter extends BasePresenter<QueryContract> {
         }
     }
 
-    public void query(String type,String salary,String time,String place,boolean hasLimit){
+    public void query(String type,String salary,String time,String place,String query,boolean hasLimit){
         if (hasLimit&&!place.equals("定位中")){
             mvpView.showLoadingView();
             jobQuery.setCity(place);
@@ -72,8 +74,11 @@ public class QueryPresenter extends BasePresenter<QueryContract> {
                 }
             });
         }else if (!place.equals("定位中")){
+            if (TextUtils.isEmpty(query)){
+                return;
+            }
             mvpView.showLoadingView();
-            JobUtil.getJobInfoByCityName(place, new JobUtil.OnGetJobInfoListener() {
+            JobUtil.getJobInfoByType(query, new JobUtil.OnGetJobInfoListener() {
                 @Override
                 public void success(List<Job> jobs) {
                     if (jobs.size()>0){

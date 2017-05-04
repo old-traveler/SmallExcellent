@@ -78,10 +78,12 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
         return new JobDetailsPresenter(this);
     }
 
-
+    /**
+     * 导入Job详情信息
+     * @param job 兼职数据对象
+     */
     @Override
     public void loadJobContent(Job job) {
-
         jobSalaryTxt.setText(job.getJobSalary() + "");
         tvModeTxt.setText("元/" + job.getBalanceMode().split("结")[0]);
         rmnumberTxt.setText(job.getRecruitmentNumber() + "人");
@@ -97,31 +99,45 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
         workIntervalTxt.setText(job.getWorkDayTime() + "天");
     }
 
+    /**
+     * 申请工作成功的界面提示
+     */
     @Override
     public void applySuccess() {
         Toast.makeText(mActivity, "申请成功", Toast.LENGTH_SHORT).show();
         btnApplyJob.setText("已申请");
     }
 
+    /**
+     * 申请工作失败的界面提示
+     * @param error 错误信息
+     */
     @Override
     public void applyFail(String error) {
         btnApplyJob.setText("申请兼职");
         btnApplyJob.setClickable(true);
         Toast.makeText(mActivity, error + "申请失败", Toast.LENGTH_SHORT).show();
     }
-
+    /**
+     * 正在申请工作的界面提示
+     */
     @Override
     public void applying() {
         btnApplyJob.setText("申请中...");
         btnApplyJob.setClickable(false);
     }
-
+    /**
+     * 提示用户没有登录
+     */
     @Override
     public void notLogin() {
         btnApplyJob.setText("请先登录");
         btnApplyJob.setClickable(false);
     }
 
+    /**
+     * 用户已经申请界面提示
+     */
     @Override
     public void haveApply() {
         rvDetailLoading.setVisibility(View.GONE);
@@ -130,18 +146,27 @@ public class JobDetailsActivity extends MvpActivity<JobDetailsPresenter> impleme
         btnApplyJob.setClickable(false);
     }
 
+    /**
+     * 验证用户是否申请该工作
+     */
     @Override
     public void verifyHaveApply() {
         rvDetailLoading.setVisibility(View.VISIBLE);
         svDetails.setVisibility(View.GONE);
     }
 
+    /**
+     * 当前用户没有申请该工作的界面提示
+     */
     @Override
     public void haveNotApply() {
         rvDetailLoading.setVisibility(View.GONE);
         svDetails.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 验证是否申请该工作失败的界面提示
+     */
     @Override
     public void verifyError() {
         rvDetailLoading.setVisibility(View.GONE);

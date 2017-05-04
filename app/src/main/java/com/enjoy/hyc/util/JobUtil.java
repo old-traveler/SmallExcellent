@@ -134,6 +134,22 @@ public class JobUtil {
      * @param cityName 当前城市名
      * @param listener 查询监听
      */
+    public static void getJobInfoByType(String cityName, final OnGetJobInfoListener listener){
+        BmobQuery<Job> query=new BmobQuery<>();
+        query.addWhereEqualTo("jobType",cityName);
+        query.setLimit(50);
+        query.findObjects(new FindListener<Job>() {
+            @Override
+            public void done(List<Job> list, BmobException e) {
+                if (e==null){
+                    listener.success(list);
+                }else {
+                    listener.fail(e.getMessage());
+                }
+            }
+        });
+    }
+
     public static void getJobInfoByCityName(String cityName, final OnGetJobInfoListener listener){
         BmobQuery<Job> query=new BmobQuery<>();
         query.addWhereEqualTo("cityName",cityName);

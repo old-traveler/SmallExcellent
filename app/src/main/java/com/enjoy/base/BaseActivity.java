@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -35,6 +36,8 @@ import rx.subscriptions.CompositeSubscription;
 public class BaseActivity extends AppCompatActivity {
 
     private static List<BaseActivity> activities;
+
+    public boolean isSpreadsFinish=true;
 
     public Toolbar mToolbar;
 
@@ -206,6 +209,32 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
     }
+    private float downX;
+    private float distance=0;
+    private long downTime=0;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (!isSpreadsFinish){
+            return super.onTouchEvent(event);
+        }
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                downX=event.getX();
+                downTime=System.currentTimeMillis();
+                return false;
+            case MotionEvent.ACTION_MOVE:
+                distance=event.getX()-downX;
+                return event.getX() - downX > event.getY();
 
-
+            case MotionEvent.ACTION_UP:
+                if (distance>200&&(System.currentTimeMillis()-downTime)<300){
+                    finish();
+                    return true;
+                }else {
+                    distance=0;
+                    return false;
+                }
+        }
+        return super.onTouchEvent(event);
+    }
 }

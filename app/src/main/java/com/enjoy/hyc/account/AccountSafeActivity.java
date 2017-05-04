@@ -49,11 +49,20 @@ public class AccountSafeActivity extends MvpActivity<AccountPresenter> implement
         mvpPresenter.initActivityData();
     }
 
+    /**
+     * 将presenter与activity绑定
+     * @return
+     */
     @Override
     protected AccountPresenter createPresenter() {
         return new AccountPresenter();
     }
 
+    /**
+     * 将用户账号手机绑定信息显示在界面中
+     * @param user     当前用户
+     * @param isVerify  是否验证了手机号码
+     */
     @Override
     public void setAccountData(BmobUser user, boolean isVerify) {
         if (isVerify) {
@@ -70,6 +79,10 @@ public class AccountSafeActivity extends MvpActivity<AccountPresenter> implement
         }
     }
 
+    /**
+     * 获取用户输入的手机号码用来验证
+     * @return
+     */
     @Override
     public String getVerifyNumber() {
         if (!TextUtils.isEmpty(etUserNumber.getText().toString())) {
@@ -78,6 +91,9 @@ public class AccountSafeActivity extends MvpActivity<AccountPresenter> implement
         return etUserNumber.getText().toString();
     }
 
+    /**
+     * 验证成功后的界面提示
+     */
     @Override
     public void verifySuccess() {
         dismissProgressDialog();
@@ -86,18 +102,29 @@ public class AccountSafeActivity extends MvpActivity<AccountPresenter> implement
         tvUserNumber.setText(BmobUser.getCurrentUser().getMobilePhoneNumber());
     }
 
+    /**
+     * 验证失败的界面提示
+     */
     @Override
     public void verifyFail() {
         dismissProgressDialog();
         Toast.makeText(mActivity, "验证失败请重试", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 获取用户想修改的旧密码
+     * @return 旧密码
+     */
     @Override
     public String getAmendPassword() {
         return etUserPassword.getText().toString();
 
     }
 
+    /**
+     * 获取用户想修改的新密码
+     * @return 新密码
+     */
     @Override
     public String getNewPassword() {
         return etUserNewNumber.getText().toString();
@@ -113,6 +140,9 @@ public class AccountSafeActivity extends MvpActivity<AccountPresenter> implement
         return isFill;
     }
 
+    /**
+     * 修改成功后的界面提示
+     */
     @Override
     public void AmendSuccess() {
         dismissProgressDialog();
@@ -121,13 +151,19 @@ public class AccountSafeActivity extends MvpActivity<AccountPresenter> implement
         Toast.makeText(mActivity, "修改成功", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 修改失败后的界面提示
+     */
     @Override
     public void AmendFail() {
         dismissProgressDialog();
         Toast.makeText(mActivity, "修改失败,稍后再试", Toast.LENGTH_SHORT).show();
     }
 
-
+    /**
+     * 点击事件   btn_verify_number验证手机号码的按钮    btn_amend_password修改密码的按钮
+     * @param view
+     */
     @OnClick({R.id.btn_verify_number, R.id.btn_amend_password})
     public void onViewClicked(View view) {
         switch (view.getId()) {

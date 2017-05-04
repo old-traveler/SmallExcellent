@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by hyc on 2017/4/26 20:51
+ * 兼职记录适配器 Created by hyc on 2017/4/26 20:51
  */
 
 public class RecordAdapter extends BaseQuickAdapter<Moonlighting> {
@@ -39,18 +39,16 @@ public class RecordAdapter extends BaseQuickAdapter<Moonlighting> {
         int monthTime=Integer.parseInt(time.split("/")[1]);
         int dayTime=Integer.parseInt(time.split("/")[2]);
         int interval=moonlighting.getJob().getWorkDayTime();
-        if (year<yearTime || month<monthTime || day<dayTime){
+        //截止日期大于当前日期即还未开始工作，所以标签为待审核
+        if (year<yearTime || yearTime==yearTime && month<monthTime
+                || yearTime==yearTime && monthTime == month && day <= dayTime){
             Glide.with(mContext)
                     .load(R.drawable.ic_hava_wait)
                     .into((ImageView) baseViewHolder.getView(R.id.iv_process_state));
         }else {
-
             long temp= System.currentTimeMillis() - interval*24L*60L*60L*1000L;
             String strDate=new SimpleDateFormat("yyyy/MM/dd").format(new Date(temp));
-            if (moonlighting.getJob().getDeadline().equals("2017/4/25")){
-                LogUtils.log("sdajdjas"+strDate+"   "+interval);
-            }
-            LogUtils.log(moonlighting.getJob().getDeadline()+"   "+strDate+"  "+interval);
+            //工作结束日期大于当前日期，所以标签为已完成
             if (!compareString(moonlighting.getJob().getDeadline(),strDate)){
                 Glide.with(mContext)
                         .load(R.drawable.ic_have_over)
@@ -69,8 +67,11 @@ public class RecordAdapter extends BaseQuickAdapter<Moonlighting> {
     }
 
     private boolean compareString(String date,String time){
-        return Integer.parseInt(date.split("/")[0])>Integer.parseInt(time.split("/")[0])
-                ||Integer.parseInt(date.split("/")[1])>Integer.parseInt(time.split("/")[1])
-                ||Integer.parseInt(date.split("/")[2])>Integer.parseInt(time.split("/")[2]);
+        return  Integer.parseInt(date.split("/")[0])>Integer.parseInt(time.split("/")[0])
+                || Integer.parseInt(date.split("/")[0])==Integer.parseInt(time.split("/")[0])
+                && Integer.parseInt(date.split("/")[1])> Integer.parseInt(time.split("/")[1])
+                || Integer.parseInt(date.split("/")[0])==Integer.parseInt(time.split("/")[0])
+                && Integer.parseInt(date.split("/")[1])==Integer.parseInt(time.split("/")[1])
+                && Integer.parseInt(date.split("/")[2])>=Integer.parseInt(time.split("/")[2]);
     }
 }

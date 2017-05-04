@@ -140,7 +140,13 @@ public class ImageUtils {
         return inSampleSize;
     }
 
-
+    /**
+     * 缩小图片的大小
+     * @param bgimage
+     * @param newWidth
+     * @param newHeight
+     * @return
+     */
     public static Bitmap zoomImage(Bitmap bgimage, double newWidth,double newHeight) {
         // 获取这个图片的宽和高
         float width = bgimage.getWidth();
@@ -175,6 +181,12 @@ public class ImageUtils {
 
     }
 
+    /**
+     * 将bitmap转化为图片保存并返回存储地址
+     * @param bitmap bitmap 数据对象
+     * @param fileName 保存文件名
+     * @return
+     */
     public static String saveBitmap(Bitmap bitmap,String fileName) {
         if (bitmap==null){
             return "";

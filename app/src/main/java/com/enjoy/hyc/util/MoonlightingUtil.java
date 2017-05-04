@@ -42,6 +42,11 @@ public class MoonlightingUtil {
         });
     }
 
+    /**
+     * 通过用户查询改用户报名参加的所有兼职信息
+     * @param user
+     * @param listener
+     */
     public static void queryMoonlighting(User user, final OnQueryMoonlighting listener){
         BmobQuery<Moonlighting> query=new BmobQuery();
         query.addWhereEqualTo("user",user);
@@ -59,6 +64,11 @@ public class MoonlightingUtil {
         });
     }
 
+    /**
+     * 通过工作查询当前用户是否申请了该兼职工作
+     * @param job
+     * @param listener
+     */
     public static void queryUserIsApply(Job job, final JobUtil.OnDeleteJobListener listener){
         BmobQuery<Moonlighting> query=new BmobQuery<>();
         query.addWhereEqualTo("job",job);

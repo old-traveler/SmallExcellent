@@ -17,6 +17,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 注册界面
+ */
 public class RegisterActivity extends MvpActivity<RegisterPresenter> implements RegisterContract {
 
 
@@ -51,6 +54,10 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         mvpPresenter.register();
     }
 
+    /**
+     * 获取注册User信息
+     * @return
+     */
     @Override
     public User getRegisterUser() {
         btnRegister.setClickable(false);
@@ -61,12 +68,19 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         return user;
     }
 
+    /**
+     * 注册成功的界面提示
+     */
     @Override
     public void registerSuccess() {
         Toast.makeText(mActivity, "注册成功", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
+    /**
+     * 注册失败的界面提示
+     */
     @Override
     public void registerFail() {
         Toast.makeText(mActivity, "注册失败,请稍后再试", Toast.LENGTH_SHORT).show();
@@ -74,6 +88,10 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         btnRegister.setClickable(true);
     }
 
+    /**
+     * 判断注册信息是否填写完整
+     * @return
+     */
     @Override
     public boolean isFill() {
         return !TextUtils.isEmpty(etRegisterUsername.getText().toString())
@@ -81,6 +99,10 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
                 &!TextUtils.isEmpty(etConfirmPassword.getText().toString());
     }
 
+    /**
+     * 判断密码和确认密码是否一致
+     * @return
+     */
     @Override
     public boolean isConfirmPassword() {
         return etRegisterPassword.getText().toString().equals(etConfirmPassword.getText().toString());

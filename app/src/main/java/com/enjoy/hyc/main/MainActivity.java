@@ -30,6 +30,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 
+/**
+ * 主界面 Create by hyc
+ */
 public class MainActivity extends MvpActivity<MainPresenter> implements MainContract {
 
 
@@ -63,6 +66,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         mvpPresenter.attachView(this);
         mvpPresenter.initFragment();
         addActivity(this);
+        isSpreadsFinish=false;
 
     }
 
@@ -71,7 +75,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         return MainPresenter.getMainPresenter();
     }
 
-
+    /**
+     * 进入activity默认加载第一个fragment
+     */
     @Override
     public void setDefaultFragment() {
         fragments = new ArrayList<>();
@@ -82,6 +88,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         FragmentTransaction transaction = mainFragmentManager.beginTransaction();
         transaction.replace(R.id.fl_main_fragment, fragments.get(0));
         transaction.commit();
+        /**
+         * 监听软键盘的弹出和收缩
+         */
         flMainFragment.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -97,6 +106,10 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
                 });
     }
 
+    /**
+     * 替换当前显示的fragment
+     * @param position 替换fragment在fragments集合中的位置
+     */
     @Override
     public void replaceFragment(int position) {
         if (position != currentPosition) {
@@ -116,8 +129,10 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         }
     }
 
-
-
+    /**
+     * 替换fragment时底部按钮的颜色改变
+     * @param position
+     */
     @Override
     public void refreshImageSrc(int position) {
         ivMap.setImageResource(R.drawable.ic_map_normal);
@@ -136,6 +151,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         }
     }
 
+    /**
+     * 获取当前位置信息
+     */
     @Override
     public synchronized void getLocationMessage() {
         LogUtils.log("开始定位");
@@ -166,21 +184,30 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainCont
         mLocationClient.startLocation();
     }
 
+    /**
+     * 判断底部按钮布局是否显示
+     * @param isShow true 即显示  false 隐藏
+     */
     @Override
     public void isVisibleBottomLayout(boolean isShow) {
         llMainButton.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
+    /**
+     * 定位失败则显示刷新位置信息的按钮
+     */
     @Override
     public void positioningFail() {
         fbMainRefresh.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 通过按钮定位成功后则隐藏刷新位置按钮
+     */
     @Override
     public void positioningSuccess() {
         fbMainRefresh.setVisibility(View.GONE);
     }
-
 
     @OnClick({R.id.rl_location_fragment, R.id.rl_query_part_time, R.id.rl_personal_fragment, R.id.fb_main_refresh})
     public void onViewClicked(View view) {

@@ -28,6 +28,7 @@ public class QueryJobAdapter extends BaseQuickAdapter<Job> {
     protected void convert(BaseViewHolder baseViewHolder, final Job job) {
         try {
             baseViewHolder.setText(R.id.tv_name,job.getJobType());
+            /**显示当前item兼职工作的薪资状况，通过split切割可以知道其属于月结还是日结*/
             baseViewHolder.setText(R.id.tv_money,job.getJobSalary()+
                     "/"+job.getBalanceMode().split("结")[0]);
             baseViewHolder.setText(R.id.tv_find_place,job.getCityName());

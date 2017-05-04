@@ -21,13 +21,18 @@ import cn.bmob.v3.BmobUser;
  */
 
 public class JobDetailsPresenter extends BasePresenter<JobDetailsContract> {
-
+    /**
+     * 用于显示的工作详情的数据对象
+     */
     public static Job jobContent;
 
     public JobDetailsPresenter(JobDetailsContract jobDetailsContract){
         attachView(jobDetailsContract);
     }
 
+    /**
+     * 加载工作详情信息
+     */
     public void loadJobContent(){
         if (jobContent!=null){
             User user=BmobUser.getCurrentUser(User.class);
@@ -57,6 +62,9 @@ public class JobDetailsPresenter extends BasePresenter<JobDetailsContract> {
         }
     }
 
+    /**
+     * 申请工作
+     */
     public void applyJob(){
         mvpView.applying();
         Moonlighting moonlighting=new Moonlighting();

@@ -29,18 +29,16 @@ public class UserUtil {
         void registerFail(String error);
     }
 
-    public interface OnDealListener{
-        void success();
-        void fail();
-    }
-
     public interface OnImageDealListener{
         void success(String path);
         void fail(String error);
     }
 
-
-
+    /**
+     * 登录
+     * @param user 登录的User
+     * @param listener 登录监听
+     */
     public static void login(User user, final OnLoginListener listener){
         user.login(new SaveListener<User>() {
 
@@ -55,6 +53,11 @@ public class UserUtil {
         });
     }
 
+    /**
+     * 注册
+     * @param user 注册的User
+     * @param listener 注册监听
+     */
     public static void register(User user, final OnRegisterListener listener){
         user.signUp(new SaveListener<User>() {
 
@@ -69,17 +72,19 @@ public class UserUtil {
         });
     }
 
-
-
-
-    public static void setCurrentUser(User user){
-        BmobUser.getCurrentUser(User.class);
-    }
-
+    /**
+     * 获取当前用户信息，暂无用
+     * @return
+     */
     public static User getCurrentUser(){
         return null;
     }
 
+    /**
+     * 验证手机号
+     * @param number
+     * @param listener
+     */
     public static void verifyMobileNumber(String number, final JobUtil.OnDeleteJobListener listener){
         User user=new User();
         user.setMobilePhoneNumber(number);
@@ -98,6 +103,12 @@ public class UserUtil {
         });
     }
 
+    /**
+     * 修改当前用户的密码
+     * @param oldPassword
+     * @param newPassword
+     * @param listener
+     */
     public static void amendPassword(String oldPassword, String newPassword, final JobUtil.OnDeleteJobListener listener){
         BmobUser.updateCurrentUserPassword(oldPassword, newPassword, new UpdateListener() {
 
@@ -113,6 +124,11 @@ public class UserUtil {
         });
     }
 
+    /**
+     * 更新当前用户的简历信息
+     * @param newUser
+     * @param listener
+     */
     public static void updateUserResume(User newUser, final JobUtil.OnDeleteJobListener listener){
         User bmobUser = BmobUser.getCurrentUser(User.class);
         newUser.update(bmobUser.getObjectId(),new UpdateListener() {
@@ -127,6 +143,11 @@ public class UserUtil {
         });
     }
 
+    /**
+     * 更新当前用户的头像图片
+     * @param path 图片储存路径
+     * @param listener 更新监听
+     */
     public static void updateUserHeadImage(String path, final OnImageDealListener listener){
         final BmobFile bmobFile = new BmobFile(new File(path));
         bmobFile.uploadblock(new UploadFileListener() {
@@ -152,8 +173,4 @@ public class UserUtil {
             }
         });
     }
-
-
-
-
 }

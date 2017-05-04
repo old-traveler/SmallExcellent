@@ -14,7 +14,9 @@ import java.util.List;
 
 public class FootprintPresenter extends BasePresenter<FootprintContract> {
 
-
+    /**
+     * 初始化足迹数据
+     */
     public void initFootprintData(){
         List<JobCache> browses=DataSupport.findAll(JobCache.class);
         if (browses!=null & browses.size()>0){
@@ -23,11 +25,16 @@ public class FootprintPresenter extends BasePresenter<FootprintContract> {
             mvpView.noFootprintData();
         }
     }
-
+    /**
+     * 是否删除足迹信息
+     */
     public void isDelete(){
         mvpView.isDeleteAllFootprint();
     }
 
+    /**
+     * 删除所有足迹信息
+     */
     public void deleteAll(){
         JobCacheUtil.deleteAll();
         mvpView.noFootprintData();

@@ -67,7 +67,7 @@ public class PayrollActivity extends MvpActivity<PayrollPresenter> implements Pa
         mvpPresenter.attachView(this);
         setToolBar(R.id.tb_payroll);
         initToolBarAsHome("工资单");
-        mvpPresenter.showPayrollDetil();
+        mvpPresenter.showPayrollDetail();
     }
 
     @Override
@@ -75,12 +75,19 @@ public class PayrollActivity extends MvpActivity<PayrollPresenter> implements Pa
         return new PayrollPresenter();
     }
 
+    /**
+     * 加载中的提示界面
+     */
     @Override
     public void showLoadingView() {
         lvPayroll.setVisibility(View.VISIBLE);
         nvPayrollDetail.setVisibility(View.GONE);
     }
 
+    /**
+     * 将加载完成的工资单显示出来
+     * @param payrolls  每个兼职工作的信息
+     */
     @Override
     public void loadComplete(List<Payroll> payrolls) {
         tvAllTotal.setText(PayrollUtil.countTotal(payrolls)+".00");
@@ -102,13 +109,18 @@ public class PayrollActivity extends MvpActivity<PayrollPresenter> implements Pa
         nvPayrollDetail.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 没有兼职工资记录的界面显示
+     */
     @Override
     public void noPayroll() {
         lvPayroll.setVisibility(View.GONE);
         nvPayrollDetail.setVisibility(View.VISIBLE);
     }
 
-
+    /**
+     * 加载失败的界面提示
+     */
     @Override
     public void loadFail() {
         lvPayroll.setVisibility(View.GONE);

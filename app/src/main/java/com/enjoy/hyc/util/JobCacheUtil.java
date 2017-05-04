@@ -27,6 +27,9 @@ public class JobCacheUtil {
         jobCache.save();
     }
 
+    /**
+     * 删除所有足迹信息
+     */
     public static void deleteAll(){
         DataSupport.deleteAll(JobCache.class);
     }

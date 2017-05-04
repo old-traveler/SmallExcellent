@@ -11,6 +11,8 @@ import com.enjoy.hyc.util.ImageUtils;
 import com.enjoy.hyc.util.JobUtil;
 import com.enjoy.hyc.util.UserUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cn.bmob.v3.BmobUser;
 
 /**
@@ -21,13 +23,17 @@ public class EditResumePresenter extends BasePresenter<EditResumeContract>{
 
     private String imagePath;
 
-
+    /**
+     * 导入当前用户的简历信息
+     */
     public void loadOldResume(){
         User user= BmobUser.getCurrentUser(User.class);
         mvpView.showCurrentUserResume(user);
     }
 
-
+    /**
+     * 保存编辑后的用户简历信息
+     */
     public void saveEditedResume(){
         UserUtil.updateUserResume(mvpView.getUpdateUser(), new JobUtil.OnDeleteJobListener() {
             @Override
@@ -42,10 +48,17 @@ public class EditResumePresenter extends BasePresenter<EditResumeContract>{
         });
     }
 
+    /**
+     * 更新用户头像图片
+     */
     public void replaceHeadImage(){
         mvpView.callSystemPhotoAlbum();
     }
 
+    /**
+     * 设置上传用户新头像图片压缩并上传
+     * @param path
+     */
     public void setImagePath(String path) {
         this.imagePath = path;
         Bitmap bitmap= BitmapFactory.decodeFile(imagePath);
@@ -56,6 +69,7 @@ public class EditResumePresenter extends BasePresenter<EditResumeContract>{
             public void success(String path) {
                 mvpView.showZoomPhoto(path);
                 Toast.makeText(SmallApplication.getContext(), "上传成功", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post("图片"+path);
             }
 
             @Override

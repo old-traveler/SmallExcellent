@@ -13,11 +13,14 @@ import com.enjoy.hyc.util.UserUtil;
 import cn.bmob.v3.BmobUser;
 
 /**
- * Created by hyc on 2017/4/25 21:50
+ * 账户与安全界面 Created by hyc on 2017/4/25 21:50
  */
 
 public class AccountPresenter extends BasePresenter<AccountContract> {
 
+    /**
+     * 初始化activity数据，判断当前用户是否绑定手机号码
+     */
     public void initActivityData(){
         User user=BmobUser.getCurrentUser(User.class);
         if (user.getMobilePhoneNumberVerified()==null){
@@ -29,6 +32,9 @@ public class AccountPresenter extends BasePresenter<AccountContract> {
         }
     }
 
+    /**
+     * 验证当前用户的手机号码并绑定
+     */
     public void verifyMobileNumber(){
         String number=mvpView.getVerifyNumber();
         if (!TextUtils.isEmpty(number)){
@@ -49,6 +55,9 @@ public class AccountPresenter extends BasePresenter<AccountContract> {
         
     }
 
+    /**
+     * 修改密码
+     */
     public void amendPassword(){
         if (!mvpView.isFill()){
             UserUtil.amendPassword(mvpView.getAmendPassword(), mvpView.getNewPassword(), new JobUtil.OnDeleteJobListener() {

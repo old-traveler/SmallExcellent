@@ -49,6 +49,10 @@ public class FootprintActivity extends MvpActivity<FootprintPresenter> implement
         return new FootprintPresenter();
     }
 
+    /**
+     * 初始化RecycleView的数据
+     * @param jobs 数据集合
+     */
     @Override
     public void initRecycleViewData(List<JobCache> jobs) {
         pvFootprint.setLinearLayout();
@@ -58,12 +62,18 @@ public class FootprintActivity extends MvpActivity<FootprintPresenter> implement
         pvFootprint.setAdapter(mFootprintAdapter);
     }
 
+    /**
+     * 没有足迹记录的界面提示
+     */
     @Override
     public void noFootprintData() {
         pvFootprint.setVisibility(View.GONE);
         tvNoFootprint.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 提示用户是否删除所有足迹信息
+     */
     @Override
     public void isDeleteAllFootprint() {
         new AlertDialog.Builder(this)
@@ -85,12 +95,22 @@ public class FootprintActivity extends MvpActivity<FootprintPresenter> implement
                 }).show();
     }
 
+    /**
+     * 创建菜单
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_footprint,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * 菜单的选择事件，即删除菜单的选项
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

@@ -17,6 +17,10 @@ public class PersonalPresenter extends BasePresenter<PersonalContract> {
         mvpView.startActivity(activity);
     }
 
+    /**
+     * 判断当前用户登录
+     * @return
+     */
     public boolean isLogin(){
         boolean isLogin=BmobUser.getCurrentUser(User.class)!=null;
         if (!isLogin){

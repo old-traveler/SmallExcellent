@@ -12,6 +12,9 @@ import com.enjoy.hyc.util.UserUtil;
 
 public class LoginPresenter extends BasePresenter<LoginContract> {
 
+    /**
+     * 登录
+     */
     public void login(){
         if (!mvpView.isFill()){
             UserUtil.login(mvpView.getLoginUser(), new UserUtil.OnLoginListener() {

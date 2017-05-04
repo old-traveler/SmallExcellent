@@ -54,6 +54,10 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         }
     }
 
+    /**
+     * 获得登录User对象
+     * @return
+     */
     @Override
     public User getLoginUser() {
         btnLogin.setClickable(false);
@@ -64,13 +68,20 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         return user;
     }
 
+    /**
+     * 登录成功的界面提示
+     */
     @Override
     public void loginSuccess() {
         btnLogin.setClickable(true);
         btnLogin.setText("登录成功");
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
+    /**
+     * 登录失败的界面提示
+     */
     @Override
     public void loginFail() {
         btnLogin.setClickable(true);
@@ -78,14 +89,21 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         Toast.makeText(mActivity, "登录失败", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 进入注册界面
+     */
     @Override
     public void enterRegister() {
         startActivity(new Intent(this, RegisterActivity.class));
     }
 
+    /**
+     * 判断登录信息是否填写完整
+     * @return 是否填写完整 true 是没有填写完毕  false 是填写完毕
+     */
     @Override
     public boolean isFill() {
-        return TextUtils.isEmpty(etLoginPassword.getText().toString())
+        return TextUtils.isEmpty(etLoginUsername.getText().toString())
                 |TextUtils.isEmpty(etLoginPassword.getText().toString());
     }
 }

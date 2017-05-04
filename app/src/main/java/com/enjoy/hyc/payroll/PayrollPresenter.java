@@ -20,8 +20,10 @@ import cn.bmob.v3.BmobUser;
 
 public class PayrollPresenter extends BasePresenter<PayrollContract> {
 
-    private List<Moonlighting> list1;
-    public void showPayrollDetil(){
+    /**
+     * 加载并显示工资单详情
+     */
+    public void showPayrollDetail(){
         mvpView.showLoadingView();
         User user= BmobUser.getCurrentUser(User.class);
         MoonlightingUtil.queryMoonlighting(user, new MoonlightingUtil.OnQueryMoonlighting() {

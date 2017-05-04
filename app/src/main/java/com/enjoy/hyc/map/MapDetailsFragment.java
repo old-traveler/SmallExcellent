@@ -93,28 +93,42 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
      */
     @Bind(R.id.rv_map_data)
     RecyclerView rvMapData;
-
+    /**
+     * AMAap mapView的管理类
+     */
     private AMap aMap;
-
+    /**
+     * 位置显示方式
+     */
     private MyLocationStyle myLocationStyle;
 
     private MapPresenter mMapPresenter;
-
+    /**
+     * 高德地图的界面设置对象
+     */
     private UiSettings mUiSettings;
-
+    /**
+     * 当前位置城市  默认株洲
+     */
     private static String city = "株洲";
-
+    /**
+     * 用户关键字查询结果集合
+     */
     private List<String> queryResults;
 
     private ProgressDialog progressDialog = null;
-
+    /**
+     * 地图显示位置的小标点
+     */
     private Marker geoMarker;
-
+    /**
+     * 地理位置查询对象
+     */
     private GeocodeSearch geocodeSearch;
-
+    /**
+     * 附近兼职信息适配器
+     */
     private NearJobAdapter mNearJobAdapter;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -156,16 +170,27 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
 
     }
 
+    /**
+     * 获取关键字查询结果显示的listView
+     * @return 关键字查询结果的listView
+     */
     @Override
     public ListView getListView() {
         return minPutListView;
     }
 
+    /**
+     * 获取关键字查询结果
+     * @return 查询结果集合
+     */
     @Override
     public List<String> getQueryResults() {
         return queryResults;
     }
 
+    /**
+     * 正在获取地址的界面提示
+     */
     @Override
     public void showDialog() {
         minPutListView.setVisibility(View.GONE);
@@ -176,6 +201,9 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         progressDialog.show();
     }
 
+    /**
+     * 隐藏提示框
+     */
     @Override
     public void dismissDialog() {
         if (progressDialog != null & progressDialog.isShowing()) {
@@ -183,36 +211,53 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         }
     }
 
+    /**
+     * 获取通过城市名获取位置信息
+     * @param name
+     */
     @Override
     public void getLocationByName(String name) {
         GeocodeQuery query = new GeocodeQuery(name, city);
         geocodeSearch.getFromLocationNameAsyn(query);
     }
 
+    /**
+     * 开始路线规划
+     */
     @Override
     public void startRoutePlan() {
-
         startActivity(new Intent(getActivity(), RouteActivity.class));
     }
 
+    /**
+     * 显示加载完成的附近兼职信息
+     * @param jobs 数据集合
+     */
     @Override
     public void loadNearJobInformationComplete(List<Job> jobs) {
         mNearJobAdapter.addData(jobs);
         mMapPresenter.setListenerForAdapter();
     }
 
+    /**
+     * 添加RecycleView的子项点击事件
+     * @param onNearJobItemClick 点击事件监听
+     */
     @Override
     public void setItemClickListener(NearJobAdapter.OnNearJobItemClick onNearJobItemClick) {
         mNearJobAdapter.setOnNearJobItemClick(onNearJobItemClick);
     }
 
+    /**
+     * 进入工作详情界面
+     * @param job 需要显示的兼职信息
+     */
     @Override
     public void startDetailsView(Job job) {
         JobDetailsPresenter.jobContent=job;
         JobCacheUtil.produceNewBrowse(job);
         mActivity.startActivity(new Intent(mActivity,JobDetailsActivity.class));
     }
-
 
     @Override
     public void onDestroyView() {
@@ -221,7 +266,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     }
 
     /**
-     * 方法必须重写
+     * mapView的处理必须重写
      */
     @Override
     public void onResume() {
@@ -229,12 +274,18 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         mapView.onResume();
     }
 
+    /**
+     * EventBus的注册
+     */
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
+    /**
+     * EventBus的取消注册   防止内存泄漏
+     */
     @Override
     public void onStop() {
         super.onStop();
@@ -243,7 +294,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
 
 
     /**
-     * 方法必须重写
+     * mapView的处理必须重写
      */
     @Override
     public void onPause() {
@@ -252,7 +303,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     }
 
     /**
-     * 方法必须重写
+     * mapView的处理必须重写
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -261,7 +312,7 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
     }
 
     /**
-     * 方法必须重写
+     * mapView的处理必须重写
      */
     @Override
     public void onDestroy() {
@@ -284,6 +335,10 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         aMap.moveCamera(CameraUpdateFactory.zoomTo(14));
     }
 
+    /**
+     * mapView的位置改变
+     * @param location 位置信息
+     */
     @Override
     public void onMyLocationChange(Location location) {
         if (location != null) {
@@ -300,6 +355,10 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
         }
     }
 
+    /**
+     * fragment的是否处于可见中
+     * @param isVisibleToUser
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -315,6 +374,13 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
 
     }
 
+    /**
+     * 当用户输入查询文字触发
+     * @param s
+     * @param start
+     * @param before
+     * @param count
+     */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         String newText = s.toString().trim();
@@ -422,10 +488,13 @@ public class MapDetailsFragment extends BaseFragment implements MapContract, AMa
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
         return false;
     }
 
+    /**
+     * EventBus接收信息，当定位成功，MainActivity发送的message将被此方法接收。
+     * @param event 定位城市
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(String event) {
         city=event;

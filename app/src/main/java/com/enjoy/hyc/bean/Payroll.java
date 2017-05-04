@@ -1,17 +1,25 @@
 package com.enjoy.hyc.bean;
 
 /**
- * Created by hyc on 2017/4/27 11:15
+ * 工资单信息类 Created by hyc on 2017/4/27 11:15
  */
 
 public class Payroll {
-
+    /**
+     * 工作类型
+     */
     private String type;
-
+    /**
+     * 工作日期
+     */
     private String time;
-
+    /**
+     * 工作收入
+     */
     private int income;
-
+    /**
+     * 工作地址
+     */
     private String address;
 
     public String getType() {

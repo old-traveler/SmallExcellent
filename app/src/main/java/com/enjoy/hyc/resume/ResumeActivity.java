@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -12,6 +13,7 @@ import com.enjoy.R;
 import com.enjoy.base.MvpActivity;
 import com.enjoy.hyc.bean.User;
 import com.enjoy.hyc.editresume.EditResumeActivity;
+import com.enjoy.hyc.view.SildingFinishLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -67,7 +69,7 @@ public class ResumeActivity extends MvpActivity<ResumePresenter> implements Resu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isNoStateColor=false;
+        isNoStateColor = false;
         setContentView(R.layout.layout_resume);
         mvpPresenter.attachView(this);
         ButterKnife.bind(this);
@@ -92,23 +94,27 @@ public class ResumeActivity extends MvpActivity<ResumePresenter> implements Resu
         }
     }
 
+    /**
+     * 显示当前用户的简历信息
+     * @param user 当前用户
+     */
     @Override
     public void showCurrentUserResume(User user) {
-        if (!TextUtils.isEmpty(user.getHeadImageUrl())){
+        if (!TextUtils.isEmpty(user.getHeadImageUrl())) {
             Glide.with(mActivity)
                     .load(user.getHeadImageUrl())
                     .into(cvResumeHead);
         }
-        nameTxt.setText(TextUtils.isEmpty(user.getName())?"小优":user.getName());
-        sexTxt.setText(TextUtils.isEmpty(user.getSex())?"男":user.getSex());
-        ageTxt.setText(TextUtils.isEmpty(user.getAge())?"未填写":user.getAge());
-        heightTxt.setText(user.getHeight()!=0?user.getHeight()+"":"未填写");
-        cityTxt.setText(TextUtils.isEmpty(user.getCity())?"未填写":user.getCity());
-        schoolTxt.setText(TextUtils.isEmpty(user.getSchool())?"未填写":user.getSchool());
-        objectiveTxt.setText(TextUtils.isEmpty(user.getObjective())?"不限":user.getObjective());
-        selfInfoTxt.setText(TextUtils.isEmpty(user.getSelfInfo())?"未填写":user.getSelfInfo());
-        tvWordExperience.setText(TextUtils.isEmpty(user.getWorkExperience())?"暂无":user.getWorkExperience());
-        tvContractQq.setText(TextUtils.isEmpty(user.getQqNumber())?"未填写":user.getQqNumber());
+        nameTxt.setText(TextUtils.isEmpty(user.getName()) ? "小优" : user.getName());
+        sexTxt.setText(TextUtils.isEmpty(user.getSex()) ? "男" : user.getSex());
+        ageTxt.setText(TextUtils.isEmpty(user.getAge()) ? "未填写" : user.getAge());
+        heightTxt.setText(user.getHeight() != 0 ? user.getHeight() + "" : "未填写");
+        cityTxt.setText(TextUtils.isEmpty(user.getCity()) ? "未填写" : user.getCity());
+        schoolTxt.setText(TextUtils.isEmpty(user.getSchool()) ? "未填写" : user.getSchool());
+        objectiveTxt.setText(TextUtils.isEmpty(user.getObjective()) ? "不限" : user.getObjective());
+        selfInfoTxt.setText(TextUtils.isEmpty(user.getSelfInfo()) ? "未填写" : user.getSelfInfo());
+        tvWordExperience.setText(TextUtils.isEmpty(user.getWorkExperience()) ? "暂无" : user.getWorkExperience());
+        tvContractQq.setText(TextUtils.isEmpty(user.getQqNumber()) ? "未填写" : user.getQqNumber());
 
     }
 }

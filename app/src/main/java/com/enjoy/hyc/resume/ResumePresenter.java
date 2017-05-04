@@ -11,7 +11,9 @@ import cn.bmob.v3.BmobUser;
 
 public class ResumePresenter extends BasePresenter<ResumeContract> {
 
-
+    /**
+     * 加载当前用户的简历信息并显示
+     */
     public void loadCurrentUserResume(){
         User user= BmobUser.getCurrentUser(User.class);
         mvpView.showCurrentUserResume(user);

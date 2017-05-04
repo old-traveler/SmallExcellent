@@ -12,6 +12,9 @@ import com.enjoy.hyc.util.UserUtil;
 
 public class RegisterPresenter extends BasePresenter<RegisterContract> {
 
+    /**
+     * 用户注册
+     */
     public void register(){
         if (mvpView.isFill()&&mvpView.isConfirmPassword()){
             UserUtil.register(mvpView.getRegisterUser(), new UserUtil.OnRegisterListener() {
@@ -30,7 +33,5 @@ public class RegisterPresenter extends BasePresenter<RegisterContract> {
         }else {
             Toast.makeText(SmallApplication.getContext(), "两次密码输入不匹配", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 }

@@ -15,6 +15,9 @@ import cn.bmob.v3.BmobUser;
 
 public class RecordPresenter extends BasePresenter<RecordContract> {
 
+    /**
+     * 获取兼职信息并通过activity显示
+     */
     public void getRecord(){
         mvpView.showLoading();
         User user= BmobUser.getCurrentUser(User.class);

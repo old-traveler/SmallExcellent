@@ -17,6 +17,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 
+/**
+ * 设置界面
+ */
 public class SettingActivity extends MvpActivity<SettingPresenter> implements SettingContract {
 
     @Bind(R.id.tb_setting)
@@ -59,6 +62,9 @@ public class SettingActivity extends MvpActivity<SettingPresenter> implements Se
         }
     }
 
+    /**
+     * 进入账号与安全界面
+     */
     @Override
     public void enterAccountSafe() {
         startActivity(new Intent(this, AccountSafeActivity.class));
@@ -69,6 +75,9 @@ public class SettingActivity extends MvpActivity<SettingPresenter> implements Se
 
     }
 
+    /**
+     * 退出当前账号并进入登录界面
+     */
     @Override
     public void enterLogin() {
         BmobUser.logOut();
