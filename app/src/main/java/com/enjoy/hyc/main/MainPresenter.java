@@ -61,7 +61,6 @@ public class MainPresenter extends BasePresenter<MainContract> implements AMapLo
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation.getErrorCode()==0){
-            LogUtils.log("定位完成"+aMapLocation.getCity());
             currentCityName=aMapLocation.getCity();
             Toast.makeText(SmallApplication.getContext(), "当前位置："+aMapLocation.getAddress(), Toast.LENGTH_SHORT).show();
             EventBus.getDefault().post(aMapLocation.getCity());

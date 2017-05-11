@@ -19,18 +19,21 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 public class UserUtil {
 
-    public interface OnLoginListener{
+    public interface OnLoginListener {
         void success();
+
         void loginFail(String error);
     }
 
-    public interface OnRegisterListener{
+    public interface OnRegisterListener {
         void success();
+
         void registerFail(String error);
     }
 
-    public interface OnImageDealListener{
+    public interface OnImageDealListener {
         void success(String path);
+
         void fail(String error);
     }
 
@@ -39,14 +42,14 @@ public class UserUtil {
      * @param user 登录的User
      * @param listener 登录监听
      */
-    public static void login(User user, final OnLoginListener listener){
+    public static void login(User user, final OnLoginListener listener) {
         user.login(new SaveListener<User>() {
 
             @Override
             public void done(User user, BmobException e) {
-                if (e==null){
+                if (e == null) {
                     listener.success();
-                }else {
+                } else {
                     listener.loginFail(e.getMessage());
                 }
             }
@@ -58,14 +61,14 @@ public class UserUtil {
      * @param user 注册的User
      * @param listener 注册监听
      */
-    public static void register(User user, final OnRegisterListener listener){
+    public static void register(User user, final OnRegisterListener listener) {
         user.signUp(new SaveListener<User>() {
 
             @Override
             public void done(User user, BmobException e) {
-                if (e==null){
+                if (e == null) {
                     listener.success();
-                }else {
+                } else {
                     listener.registerFail(e.getMessage());
                 }
             }
@@ -85,18 +88,18 @@ public class UserUtil {
      * @param number
      * @param listener
      */
-    public static void verifyMobileNumber(String number, final JobUtil.OnDeleteJobListener listener){
-        User user=new User();
+    public static void verifyMobileNumber(String number, final JobUtil.OnDeleteJobListener listener) {
+        User user = new User();
         user.setMobilePhoneNumber(number);
         user.setMobilePhoneNumberVerified(true);
         User cur = BmobUser.getCurrentUser(User.class);
-        user.update(cur.getObjectId(),new UpdateListener() {
+        user.update(cur.getObjectId(), new UpdateListener() {
 
             @Override
             public void done(BmobException e) {
-                if (e==null){
+                if (e == null) {
                     listener.success();
-                }else {
+                } else {
                     listener.fail(e.getMessage());
                 }
             }
@@ -109,14 +112,14 @@ public class UserUtil {
      * @param newPassword
      * @param listener
      */
-    public static void amendPassword(String oldPassword, String newPassword, final JobUtil.OnDeleteJobListener listener){
+    public static void amendPassword(String oldPassword, String newPassword, final JobUtil.OnDeleteJobListener listener) {
         BmobUser.updateCurrentUserPassword(oldPassword, newPassword, new UpdateListener() {
 
             @Override
             public void done(BmobException e) {
-                if(e==null){
+                if (e == null) {
                     listener.success();
-                }else{
+                } else {
                     listener.fail(e.getMessage());
                 }
             }
@@ -129,14 +132,14 @@ public class UserUtil {
      * @param newUser
      * @param listener
      */
-    public static void updateUserResume(User newUser, final JobUtil.OnDeleteJobListener listener){
+    public static void updateUserResume(User newUser, final JobUtil.OnDeleteJobListener listener) {
         User bmobUser = BmobUser.getCurrentUser(User.class);
-        newUser.update(bmobUser.getObjectId(),new UpdateListener() {
+        newUser.update(bmobUser.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if(e==null){
+                if (e == null) {
                     listener.success();
-                }else{
+                } else {
                     listener.fail(e.getMessage());
                 }
             }
@@ -148,26 +151,26 @@ public class UserUtil {
      * @param path 图片储存路径
      * @param listener 更新监听
      */
-    public static void updateUserHeadImage(String path, final OnImageDealListener listener){
+    public static void updateUserHeadImage(String path, final OnImageDealListener listener) {
         final BmobFile bmobFile = new BmobFile(new File(path));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                if(e==null){
-                    User newUser=new User();
+                if (e == null) {
+                    User newUser = new User();
                     newUser.setHeadImageUrl(bmobFile.getUrl());
                     User bmobUser = BmobUser.getCurrentUser(User.class);
-                    newUser.update(bmobUser.getObjectId(),new UpdateListener() {
+                    newUser.update(bmobUser.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
-                            if(e==null){
+                            if (e == null) {
                                 listener.success(bmobFile.getFileUrl());
-                            }else{
+                            } else {
                                 listener.fail(e.getMessage());
                             }
                         }
                     });
-                }else{
+                } else {
                     listener.fail(e.getMessage());
                 }
             }

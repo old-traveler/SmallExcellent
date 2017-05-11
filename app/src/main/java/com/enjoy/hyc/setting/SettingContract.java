@@ -12,5 +12,4 @@ public interface SettingContract {
 
     void enterLogin();
 
-
 }

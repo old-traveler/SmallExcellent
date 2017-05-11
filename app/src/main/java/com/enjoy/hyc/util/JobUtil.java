@@ -74,7 +74,6 @@ public class JobUtil {
 
 
         public void query(OnQueryJobsListener listener){
-            String jobtype=type;
             int minSalary;
             int maxSalary;
             String mode;
@@ -101,12 +100,6 @@ public class JobUtil {
                 maxTime=time.indexOf("以上")!=-1?-1:Integer.parseInt(time.split("-")[1].split("天")[0]);
                 minTime=time.indexOf("以上")!=-1?60:Integer.parseInt(time.split("-")[0]);
             }
-            LogUtils.log("type："+type);
-            LogUtils.log("minSalary："+minSalary);
-            LogUtils.log("maxSalary："+maxSalary);
-            LogUtils.log("mode："+mode);
-            LogUtils.log("mintime："+minTime);
-            LogUtils.log("maxtime："+maxTime);
             queryJobInfoByAttr(type,minSalary,maxSalary,mode,city,minTime,maxTime,listener);
         }
     }

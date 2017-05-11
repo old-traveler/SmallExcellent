@@ -81,6 +81,5 @@ public class NearJobAdapter extends BaseQuickAdapter<Job>{
             }
         });
 
-
     }
 }

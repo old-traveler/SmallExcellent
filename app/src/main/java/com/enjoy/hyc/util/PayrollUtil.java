@@ -34,25 +34,25 @@ public class PayrollUtil {
         List<Payroll> payrolls=new ArrayList<>();
         payrolls=new ArrayList<>();
         long currentTime=System.currentTimeMillis();
-        String today=new SimpleDateFormat("yyyy/MM/dd").format(new Date(currentTime));
+        String today = new SimpleDateFormat("yyyy/MM/dd").format(new Date(currentTime));
 
-        for (Moonlighting moon:moonLighting) {
-            if (!countDateAfterTime(moon.getJob().getDeadline(),today)){
+        for (Moonlighting moon : moonLighting) {
+            if (!countDateAfterTime(moon.getJob().getDeadline(), today)) {
                 LogUtils.log(moon.getJob().getDeadline());
-                long temp= currentTime - (moon.getJob().getWorkDayTime()-1)*24L*60L*60L*1000L;
+                long temp = currentTime - (moon.getJob().getWorkDayTime() - 1) * 24L * 60L * 60L * 1000L;
                 //对应的兼职的开始时间
-                String strDate=new SimpleDateFormat("yyyy/MM/dd").format(new Date(temp));
-                if (!countDateAfterTime(moon.getJob().getDeadline(),strDate)){
+                String strDate = new SimpleDateFormat("yyyy/MM/dd").format(new Date(temp));
+                if (!countDateAfterTime(moon.getJob().getDeadline(), strDate)) {
                     //该兼职已完成
-                    for (int i = 1; i <=moon.getJob().getWorkDayTime(); i++) {
-                        String time="";
-                        Payroll p=new Payroll();
-                        p.setIncome(moon.getJob().getJobSalary()/moon.getJob().getWorkDayTime());
+                    for (int i = 1; i <= moon.getJob().getWorkDayTime(); i++) {
+                        String time = "";
+                        Payroll p = new Payroll();
+                        p.setIncome(moon.getJob().getJobSalary() / moon.getJob().getWorkDayTime());
                         p.setAddress(moon.getJob().getContactAddress());
                         p.setType(moon.getJob().getJobType());
                         try {
-                            time=new SimpleDateFormat("yyyy/MM/dd").format(new Date(stringToDate(moon
-                                    .getJob().getDeadline()).getTime()+i*24L*60L*60L*1000L));
+                            time = new SimpleDateFormat("yyyy/MM/dd").format(new Date(stringToDate(moon
+                                    .getJob().getDeadline()).getTime() + i * 24L * 60L * 60L * 1000L));
                         } catch (ParseException e) {
                             e.printStackTrace();
                             LogUtils.log("时间格式错误");
@@ -65,26 +65,26 @@ public class PayrollUtil {
                     //兼职正在进行中
                     Date date = null;
                     try {
-                        date=stringToDate(new SimpleDateFormat("yyyy/MM/dd").format(new Date(currentTime)));
+                        date = stringToDate(new SimpleDateFormat("yyyy/MM/dd").format(new Date(currentTime)));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    Date fdate= null;
+                    Date fdate = null;
                     try {
                         fdate = stringToDate(moon.getJob().getDeadline());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    int haveDay=daysOfTwo(fdate,date)-1;
-                    for (int i = 0; i < haveDay+1; i++) {
-                        String time="";
-                        Payroll p=new Payroll();
-                        p.setIncome(moon.getJob().getJobSalary()/moon.getJob().getWorkDayTime());
+                    int haveDay = daysOfTwo(fdate, date) - 1;
+                    for (int i = 0; i < haveDay + 1; i++) {
+                        String time = "";
+                        Payroll p = new Payroll();
+                        p.setIncome(moon.getJob().getJobSalary() / moon.getJob().getWorkDayTime());
                         p.setAddress(moon.getJob().getContactAddress());
                         p.setType(moon.getJob().getJobType());
                         try {
-                            time=new SimpleDateFormat("yyyy/MM/dd").format(new Date(stringToDate(moon
-                                    .getJob().getDeadline()).getTime()+(i+1)*24L*60L*60L*1000L));
+                            time = new SimpleDateFormat("yyyy/MM/dd").format(new Date(stringToDate(moon
+                                    .getJob().getDeadline()).getTime() + (i + 1) * 24L * 60L * 60L * 1000L));
                         } catch (ParseException e) {
                             e.printStackTrace();
                             LogUtils.log("时间格式错误");
@@ -107,15 +107,15 @@ public class PayrollUtil {
      * 计算data日期是否在time之后
      * @param date
      * @param time
-     * @return true  date日期在time之后
+     * @return true  date日期在time之后  2017/4/5
      */
-    private static boolean countDateAfterTime(String date,String time){
-        return Integer.parseInt(date.split("/")[0])>Integer.parseInt(time.split("/")[0])
-                || Integer.parseInt(date.split("/")[0])==Integer.parseInt(time.split("/")[0])
-                && Integer.parseInt(date.split("/")[1])> Integer.parseInt(time.split("/")[1])
-                || Integer.parseInt(date.split("/")[0])==Integer.parseInt(time.split("/")[0])
-                && Integer.parseInt(date.split("/")[1])==Integer.parseInt(time.split("/")[1])
-                && Integer.parseInt(date.split("/")[2])>=Integer.parseInt(time.split("/")[2]);
+    private static boolean countDateAfterTime(String date, String time) {
+        return Integer.parseInt(date.split("/")[0]) > Integer.parseInt(time.split("/")[0])
+                || Integer.parseInt(date.split("/")[0]) == Integer.parseInt(time.split("/")[0])
+                && Integer.parseInt(date.split("/")[1]) > Integer.parseInt(time.split("/")[1])
+                || Integer.parseInt(date.split("/")[0]) == Integer.parseInt(time.split("/")[0])
+                && Integer.parseInt(date.split("/")[1]) == Integer.parseInt(time.split("/")[1])
+                && Integer.parseInt(date.split("/")[2]) >= Integer.parseInt(time.split("/")[2]);
     }
 
     /**
@@ -166,15 +166,15 @@ public class PayrollUtil {
      * @param payrolls
      * @return
      */
-    public static int countIncomeType(String type,String mayType,List<Payroll> payrolls){
-        int income=0;
-        for (Payroll payroll:payrolls){
+    public static int countIncomeType(String type, String mayType, List<Payroll> payrolls) {
+        int income = 0;
+        for (Payroll payroll : payrolls) {
 
-            if (payroll.getType().equals(type) || payroll.getType().equals(mayType)){
-                income+=payroll.getIncome();
+            if (payroll.getType().equals(type) || payroll.getType().equals(mayType)) {
+                income += payroll.getIncome();
             }
         }
-        otherIncome+=income;
+        otherIncome += income;
         return income;
     }
 
@@ -183,10 +183,10 @@ public class PayrollUtil {
      * @param payrolls
      * @return
      */
-    public static int countTotal(List<Payroll> payrolls){
-        int income=0;
-        for (Payroll payroll:payrolls){
-            income+=payroll.getIncome();
+    public static int countTotal(List<Payroll> payrolls) {
+        int income = 0;
+        for (Payroll payroll : payrolls) {
+            income += payroll.getIncome();
         }
         return income;
     }
@@ -196,14 +196,15 @@ public class PayrollUtil {
      * @param payrolls
      * @return
      */
-    public static int countTodayIncome(List<Payroll> payrolls){
-        int income=0;
-        String strDate=new SimpleDateFormat("yyyy/MM/dd").format(new Date(System.currentTimeMillis()));
-        for (Payroll payroll:payrolls) {
-            if (payroll.getTime().equals(strDate)){
-                income+=payroll.getIncome();
+    public static int countTodayIncome(List<Payroll> payrolls) {
+        int income = 0;
+        String strDate = new SimpleDateFormat("yyyy/MM/dd").format(new Date(System.currentTimeMillis()));
+        for (Payroll payroll : payrolls) {
+            if (payroll.getTime().equals(strDate)) {
+                income += payroll.getIncome();
             }
         }
+
         return income;
     }
 
@@ -212,9 +213,9 @@ public class PayrollUtil {
      * @param payrolls
      * @return
      */
-    public static int countOther(List<Payroll> payrolls){
-        int income=countTotal(payrolls)-otherIncome;
-        otherIncome=0;
+    public static int countOther(List<Payroll> payrolls) {
+        int income = countTotal(payrolls) - otherIncome;
+        otherIncome = 0;
         return income;
     }
 
